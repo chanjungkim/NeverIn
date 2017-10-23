@@ -56,14 +56,13 @@
 <body>
 	<div id="wrap">
 		<div id="header">
-			<jsp:include page="Header.jsp" />
+			<jsp:include page="../header.jsp" />
 		</div>
 		<div id="main">
 		
 			<!-- contentPage가 없을 경우 FirstView.jsp를 보여준다. -->
 			<c:set var="contentPage" value="${param.contentPage}"/>
 			<c:if test="${contentPage==null}">	
-				<jsp:include page="FirstView.jsp" />
 			</c:if>
 			<jsp:include page="${contentPage}" />
 			

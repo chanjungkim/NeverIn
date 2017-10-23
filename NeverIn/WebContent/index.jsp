@@ -50,6 +50,20 @@ button{
 .panel-body{
 	margin: 20px;
 }
+.modal-body {
+  height: inherit;
+}
+.modal-left {
+	width: 30px;
+	height: 30px;
+	background-color: green;
+	display: inline;
+}
+.modal-right {
+	left: 100px;
+	background-color: yellow;
+	display: inline;
+}
 </style>
 </head>
 <body>
@@ -87,9 +101,8 @@ button{
 							</tr>
 							<tr>
 								<td colspan="2">
-									<a href="#">
-								<button type="submit" class="btn btn-default">회원가입</button>
-									</a>
+									  <!-- Trigger the modal with a button -->
+									  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">회원 가입</button>
 								</td>
 							</tr>
 						</table>						
@@ -97,6 +110,56 @@ button{
 				</form>
 			</div>
 		</div>
+		
+		  <!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		    
+		      <!-- Modal content-->
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">회원 가입</h4>
+		        </div>
+				<div class="modal-body" style="height:300px">
+					<div class="modal-left">
+					
+					</div>
+					<div class="modal-right">
+						<form class="form-horizontal" method="post" action="nverIn/board_list.jsp">
+							<div class="form-group">
+								<table class="table-hover table-managed">
+									<tr>
+										<td>
+											<label>아이디</label><br>
+											<input type="text" placeholder="아이디를 입력하세요." />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label>비밀번호</label><br>
+											<input type="password" placeholder="아이디를 입력하세요." />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label>비밀번호 확인</label><br>
+											<input type="password" placeholder="아이디를 입력하세요." />
+										</td>
+									</tr>
+								</table>
+						        <input type="submit" class="btn btn-default" data-dismiss="modal"></button>		
+							</div>			
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+        		</div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		
 	</div>
 </body>
 </html>
