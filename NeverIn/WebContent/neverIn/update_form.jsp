@@ -10,6 +10,8 @@
 		(Article) request.getAttribute("original");
 %>
 <body>
+<jsp:include page="../menu.jsp"/>
+
 	<form action="<%=request.getContextPath()%>/board" 
 												method="post">
 	<input type="hidden" name="type" value="update">

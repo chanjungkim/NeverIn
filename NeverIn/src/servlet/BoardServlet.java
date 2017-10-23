@@ -15,6 +15,9 @@ import vo.ArticlePageVO;
 
 @WebServlet("/board")
 public class BoardServlet extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+
 	private BoardService service = BoardService.getInstance();
 
 	@Override
@@ -23,35 +26,35 @@ public class BoardServlet extends HttpServlet{
 		String path = "";
 		
 		if(type==null || type.equals("boardList")) {
-			// °Ô½ÃÆÇ ¸ñ·Ï º¸¿©ÁÖ±â À§ÇÑ ÀÛ¾÷.
-			// Å¬¶óÀÌ¾ðÆ®°¡ ¿äÃ»ÇÏ´Â ÆäÀÌÁö parameter ¹Þ±â
+			// ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½.
+			// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ parameter ï¿½Þ±ï¿½
 			String pageStr = request.getParameter("p");
 			int page = 1;
 			if(pageStr!=null && pageStr.length()>0) {
 				page = Integer.parseInt(pageStr);
 			}
 			
-			// page Á¤º¸ ÁÖ¸é¼­ serviceÇÑÅ× ÀÏ½ÃÅ°±â
+			// page ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¸é¼­ serviceï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½Å°ï¿½ï¿½
 			ArticlePageVO articlePage = 
 					service.makeArticlePage(page);
 			
 			request.setAttribute("articlePage", articlePage);
 			
-			// °Ô½ÃÆÇ ¸ñ·Ï html È­¸éÀ» ¸¸µå´Â jsp¿¡°Ô forward
+			// ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ html È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ jspï¿½ï¿½ï¿½ï¿½ forward
 			path = "board_list.jsp";
 		}else if(type.equals("writeForm")) {
-			// ±Û ÀÔ·Â È­¸éhtml Á¦°øÇÏ±â
+			// ï¿½ï¿½ ï¿½Ô·ï¿½ È­ï¿½ï¿½html ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 			path = "write_form.jsp";
 		}else if(type.equals("read")) {
-			// ÀÐ±â ¿äÃ» ¹Þ¾ÒÀ» ¶§ ±Û ¹øÈ£ ÆÄ¶ó¹ÌÅÍµµ ¹Þ¾Æ¿À±â
+			// ï¿½Ð±ï¿½ ï¿½ï¿½Ã» ï¿½Þ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ä¶ï¿½ï¿½ï¿½Íµï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 			String articleNumStr = 
 					request.getParameter("articleNum");
 			int articleNum = 0;
 			if(articleNumStr!=null && articleNumStr.length()>0) {
-				// ±Û ¹øÈ£ ÆÄ¶ó¹ÌÅÍ¸¦ int·Î º¯È¯
+				// ï¿½ï¿½ ï¿½ï¿½È£ ï¿½Ä¶ï¿½ï¿½ï¿½Í¸ï¿½ intï¿½ï¿½ ï¿½ï¿½È¯
 				articleNum = Integer.parseInt(articleNumStr);
 			}
-			// ±Û ³»¿ë º¸¿©ÁÖ·Á¸é ¼­ºñ½ºÇÑÅ× ÇØ´ç±Û °¡Á®¿À¶ó ÇØ¾ßÇÔ.
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.
 			Article article = 
 					service.readAndReadCount(articleNum);
 			
@@ -62,7 +65,7 @@ public class BoardServlet extends HttpServlet{
 				path = "article_not_found.jsp";
 			}
 		} else if(type.equals("updateForm")) {
-			// ±ÛÀÐ±â¿¡¼­ ¼öÁ¤ÇÏ±â ´­·¶À» ¶§ ±Û¹øÈ£ ¹Þ±â
+			// ï¿½ï¿½ï¿½Ð±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¹ï¿½È£ ï¿½Þ±ï¿½
 			String articleNumStr = 
 						request.getParameter("articleNum");
 			int articleNum = 0;
@@ -71,7 +74,7 @@ public class BoardServlet extends HttpServlet{
 				articleNum = 
 						Integer.parseInt(articleNumStr);
 			}
-			// Á¶È¸¼ö Áõ°¡ ¾øÀÌ ¿øº» ±Û Á¶È¸ÇÏ´Â ¼­ºñ½º ±â´É
+			// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			Article original = 
 					service.readWithoutReadCount(articleNum);
 			
@@ -79,7 +82,7 @@ public class BoardServlet extends HttpServlet{
 			
 			path = "update_form.jsp";
 		} else if(type.equals("deleteForm")) {
-			// ±ÛÀÐ±â¿¡¼­ »èÁ¦ÇÏ±â ´­·¶À» ¶§ ±Û¹øÈ£ ¹Þ±â
+			// ï¿½ï¿½ï¿½Ð±â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¹ï¿½È£ ï¿½Þ±ï¿½
 			String articleNumStr = 
 					request.getParameter("articleNum");
 			int articleNum = 0;
@@ -87,7 +90,7 @@ public class BoardServlet extends HttpServlet{
 						&& articleNumStr.length() > 0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
-			// »èÁ¦ÇÒ ±Û ¹øÈ£¸¸ delete_form.jsp¿¡ Àü´Þ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ delete_form.jspï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			request.setAttribute("articleNum", articleNum);
 			path = "delete_form.jsp";
 		}
@@ -97,7 +100,7 @@ public class BoardServlet extends HttpServlet{
 		dispatcher.forward(request, response);
 	}
 ////////////////////////////////////////////////////////////	
-	// post ¹æ½ÄÀ¸·Î µé¾î¿Â ¿äÃ» Ã³¸®
+	// post ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» Ã³ï¿½ï¿½
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
 		request.setCharacterEncoding("euc-kr");
@@ -109,7 +112,7 @@ public class BoardServlet extends HttpServlet{
 			article.setTitle(request.getParameter("title"));
 			article.setWriter(request.getParameter("writer"));
 			article.setContents(request.getParameter("contents"));
-			// ¼­ºñ½ºÇÑÅ× ÀÏ½ÃÅ°°í ¸¶¹«¸® ÇÏ¸é µÊ.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½.
 			if(service.writeArticle(article)) {
 				path = "write_success.jsp";
 			}else {
@@ -119,14 +122,14 @@ public class BoardServlet extends HttpServlet{
 			Article updateArticle = new Article();
 			updateArticle.setTitle(request.getParameter("title"));
 			updateArticle.setContents(request.getParameter("contents"));
-			// ¼öÁ¤ÇÒ ±Û¹øÈ£ ÆÄ¶ó¹ÌÅÍ ¹®ÀÚ¿­À» ¼ýÀÚ·Î º¯È¯
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¹ï¿½È£ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½È¯
 			String articleNumStr = request.getParameter("articleNum");
 			int articleNum = 0;
 			if(articleNumStr!=null && articleNumStr.length()>0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
 			updateArticle.setAritlcleNum(articleNum);
-			// ¼öÁ¤µÈ ³»¿ëµéÀ» ¼­ºñ½º¿¡°Ô Àü´Þ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ñ½º¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if(service.idCheckUpdate(updateArticle)) {
 				request.setAttribute
 				("articleNum", updateArticle.getAritlcleNum());
@@ -136,13 +139,13 @@ public class BoardServlet extends HttpServlet{
 			}			
 		}else if(type.equals("delete")) {
 
-			// »èÁ¦ÇÒ ±Û¹øÈ£ ÆÄ¶ó¹ÌÅÍ int·Î º¯È¯
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¹ï¿½È£ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ intï¿½ï¿½ ï¿½ï¿½È¯
 			String articleNumStr = request.getParameter("articleNum");
 			int articleNum = 0;
 			if(articleNumStr!=null && articleNumStr.length()>0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
-			// ¼­ºñ½º¿¡°Ô »èÁ¦ÇÏ¶ó°í ÇÏ±â
+			// ï¿½ï¿½ï¿½ñ½º¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ ï¿½Ï±ï¿½
 			if(service.delete(articleNum)) {
 				path = "delete_success.jsp";
 			}else {

@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-<div class="container">
-  <h3>엔터테인먼트</h3>
+<jsp:include page="../header.jsp"/>
+<jsp:include page="../menu.jsp"/>
+
+<div class="container"></div>
+  <h3>컴퓨터</h3>
 </body>
 </html>

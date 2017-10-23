@@ -5,6 +5,8 @@
 <title>삭제 확인 페이지</title>
 </head>
 <body>	
+<jsp:include page="../menu.jsp"/>
+
 <%
 	int articleNum = 
 		(Integer) request.getAttribute("articleNum");

@@ -6,6 +6,8 @@
 <title>글 읽기 화면</title>
 </head>
 <body>
+<jsp:include page="../menu.jsp"/>
+
 <%
 	Article article = 
 				(Article) request.getAttribute("article");

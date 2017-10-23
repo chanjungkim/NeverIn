@@ -5,6 +5,8 @@
 <title>글 작성 화면</title>
 </head>
 <body>
+<jsp:include page="../menu.jsp"/>
+
 	<form action="<%=request.getContextPath()%>/board" 
 												method="post">
 		<input type="hidden" name="type" value="${sessionScope.loginId}">												

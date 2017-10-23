@@ -20,6 +20,8 @@
 		(ArticlePageVO) request.getAttribute("articlePage");
 %>
 <body>
+<jsp:include page="../menu.jsp"/>
+
 	<h2>이곳은 심플 게시판 화면 입니다.</h2>
 	<table class="table table-striped table-hover">
 		<thead>

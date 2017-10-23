@@ -5,6 +5,8 @@
 <title>수정하기 완료</title>
 </head>
 <body>
+<jsp:include page="../menu.jsp"/>
+
 	<%
 		int articleNum = 
 			(Integer) request.getAttribute("articleNum");

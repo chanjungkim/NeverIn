@@ -1,43 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
+pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<title>NEVER 지식IN-무엇이든 물어보세요</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-ul.nav li.dropdown:hover>ul.dropdown-menu {
-	display: block;
-	margin: 0;
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+.logo-container{
+	display:inline;
+}
+#logo{
+	background-color: green;
+	width:200px;
+	height:100px;
 }
 </style>
 </head>
 <body>
-
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="main.jsp">NEVER 지식IN</a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">Home</a></li>
-				<li class="dropdown"><a href="page1.jsp"/>지식Q&A</a>
-					<ul class="dropdown-menu">
-						<li><a href="page2.jsp">교육</a></li>
-						<li><a href="page3.jsp">컴퓨터</a></li>
-						<li><a href="page4.jsp">엔터테인먼트</a></li>
-					</ul></li>
-				<li><a href="page5.jsp">자유 게시판</a></li>
-				<li><a href="page6.jsp">설정</a></li>
-			</ul>
-		</div>
-	</nav>
+<div class="container">
+	<div class="logo-container">
+		<img id="logo" src="images/logo.png">
+	</div>	
+</div>
 </body>
 </html>
