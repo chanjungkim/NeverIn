@@ -14,7 +14,7 @@ import java.util.List;
 import vo.Article;
 
 public class BoardDao {
-	// DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+	// DB Á¢¼Ó °ü·Ã ¹®ÀÚ¿­ »ó¼öµé.
 	private static final String DB_DRIVER = 
 							"com.mysql.jdbc.Driver";
 	private static final String DB_URL = 
@@ -24,7 +24,7 @@ public class BoardDao {
 	private static final String DB_PW = 
 							"sds1501";
 ////////////////////////////////////////////////////////////	
-	// singleton ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// singleton ÆĞÅÏ Àû¿ë
 	private static BoardDao instance = new BoardDao();
 	public static BoardDao getInstance() {
 		return instance;
@@ -33,12 +33,12 @@ public class BoardDao {
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("mysql ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("mysql µå¶óÀÌ¹ö ·Îµù ¿À·ù");
 			e.printStackTrace();
 		}
 	}
 ////////////////////////////////////////////////////////////	
-	// DB ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ ï¿½Ş¼Òµï¿½ï¿½
+	// DB ¿¬°á, ÇØÁ¦ °ü·Ã ÇÊµå¿Í ¸Ş¼Òµåµé
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -48,7 +48,7 @@ public class BoardDao {
 			con = DriverManager.getConnection
 								(DB_URL, DB_ID, DB_PW);
 		} catch (SQLException e) {
-			System.out.println("Ä¿ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("Ä¿³Ø¼Ç »ı¼º ¿À·ù");
 			e.printStackTrace();
 		}
 	}
@@ -80,22 +80,21 @@ public class BoardDao {
 		}
 	}
 ////////////////////////////////////////////////////////////
-	// SQL ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
-	// ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Ïºï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
-	// 1. ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+
+	// 1. ÃÑ °Ô½Ã±ÛÀÇ °¹¼ö Á¶È¸
 	public int selectArticleCount() {
 		makeConnection();
 		String sql = "SELECT COUNT(*) FROM BOARD";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // sql ï¿½ï¿½ï¿½ï¿½
+			rs = pstmt.executeQuery(); // sql ½ÇÇà
 			
-			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½
+			// °á°ú ¼ıÀÚ ÇÏ³ª ¾ò±â
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao count ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("dao count ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -105,13 +104,13 @@ public class BoardDao {
 		return result;
 	}
 	
-	// 2. Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸
+	// 2. Æ¯Á¤ ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Û Á¶È¸
 	public List<Article> selectArticleList
 							(int startRow, int count){
 		makeConnection();
 		String sql = "SELECT ARTICLE_NUM, TITLE,"
 				+ "WRITER, CONTENTS, READ_COUNT,"
-				+ "WRITE_DATE, PASSWORD FROM BOARD "
+				+ "write_time FROM BOARD "
 				+ "ORDER BY ARTICLE_NUM DESC LIMIT ?,?";
 		List<Article> articleList = new ArrayList<>();
 		
@@ -119,7 +118,7 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, count);
-			rs = pstmt.executeQuery(); // SQL ï¿½ï¿½ï¿½ï¿½
+			rs = pstmt.executeQuery(); // SQL ½ÇÇà
 			
 			while(rs.next()) {
 				Article article = new Article();
@@ -129,12 +128,11 @@ public class BoardDao {
 				article.setContents(rs.getString(4));
 				article.setReadCount(rs.getInt(5));
 				article.setWriteDate(rs.getTimestamp(6));
-				article.setPassword(rs.getString(7));
 				
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao selectArticleList ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("dao selectArticleList ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -145,27 +143,26 @@ public class BoardDao {
 	}
 	
 //////////////////////////////////////////////////////////
-	// ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
+	// ±Û¾²±â ¸Ş¼Òµå
 	public int insert(Article article) {
 		makeConnection();
 		String sql = "INSERT INTO BOARD"
-				+ "(TITLE,WRITER,PASSWORD,CONTENTS,READ_COUNT,"
-				+ "WRITE_DATE) VALUES(?,?,?,?,?,?)";
+				+ "(TITLE,WRITER,CONTENTS,READ_COUNT,"
+				+ "WRITE_TIME) VALUES(?,?,?,?,?)";
 		int result = 0;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getWriter());
-			pstmt.setString(3, article.getPassword());
-			pstmt.setString(4, article.getContents());
-			pstmt.setInt(5, article.getReadCount());
-			pstmt.setTimestamp(6, 
+			pstmt.setString(3, article.getContents());
+			pstmt.setInt(4, article.getReadCount());
+			pstmt.setTimestamp(5, 
 				new Timestamp(article.getWriteDate().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ï¿½ï¿½ï¿½ï¿½
+			result = pstmt.executeUpdate(); // SQL ½ÇÇà
 		} catch (SQLException e) {
-			System.out.println("dao insert ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("dao insert ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -174,8 +171,8 @@ public class BoardDao {
 		return result;
 	}
 //////////////////////////////////////////////////////////
-	// ï¿½ï¿½ ï¿½Ğ±ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ş¼Òµï¿½
-	// 1. ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+	// 1. Á¶È¸¼ö Áõ°¡
 	public int updateReadCount(int articleNum) {
 		makeConnection();
 		String sql = 
@@ -186,9 +183,9 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate(); // SQL ï¿½ï¿½ï¿½ï¿½			
+			result = pstmt.executeUpdate(); // SQL ½ÇÇà			
 		} catch (SQLException e) {
-			System.out.println("dao update ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("dao update ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -196,19 +193,19 @@ public class BoardDao {
 		}
 		return result;
 	}
-	// 2. ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Article ï¿½ï¿½È¸
+	// 2. ÇØ´ç ¹øÈ£ÀÇ Article Á¶È¸
 	public Article select(int articleNum) {
 		makeConnection();
 		String sql = 
 			"SELECT ARTICLE_NUM,TITLE,WRITER,"
-			+ "CONTENTS,WRITE_DATE,READ_COUNT FROM BOARD "
+			+ "CONTENTS,write_time,READ_COUNT FROM BOARD "
 			+ "WHERE ARTICLE_NUM=?";
 		Article article = null;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL ï¿½ï¿½ï¿½ï¿½
+			rs = pstmt.executeQuery(); // SQL ½ÇÇà
 			
 			if(rs.next()) {
 				article = new Article();
@@ -220,7 +217,7 @@ public class BoardDao {
 				article.setReadCount(rs.getInt(6));
 			}
 		} catch (SQLException e) {
-			System.out.println("dao select ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("dao select ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -229,24 +226,28 @@ public class BoardDao {
 		}
 		return article;
 	}	
+//////////////////////////////////////////////////////////
+	// ¼öÁ¤ÇÏ±â
 	public int update(Article article) {
 		makeConnection();
 		int result = 0;
-		String sql = "update board set title=?, contents=?,"
-		+"write_date = ? where article_num=? and password=?";
+		String sql = 
+		"UPDATE BOARD SET TITLE=?,CONTENTS=?,write_time=? "
+		+ "WHERE ARTICLE_NUM=? ";
+		
+		System.out.println("dao update:"+article);
 		try {
 			pstmt = con.prepareStatement(sql);
-			
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getContents());
-			pstmt.setString(2, article.getContents());
-			pstmt.setTimestamp(3, new Timestamp(article.getWriteDate().getTime()));
-			pstmt.setInt(4,  article.getAritlcleNum());
-			pstmt.setString(5,  article.getPassword());
+			pstmt.setTimestamp(3, 
+					new Timestamp
+						(article.getWriteDate().getTime()));
+			pstmt.setInt(4, article.getAritlcleNum());
 			
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();//SQL ½ÇÇà
 		} catch (SQLException e) {
-			System.out.println("dao update ì—ëŸ¬");
+			System.out.println("dao update ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -254,24 +255,26 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
-	public int delete(String pw, int articleNum){
+/////////////////////////////////////////////////////////
+	// »èÁ¦ÇÏ±â
+	public int delete(int articleNum) {
 		makeConnection();
 		int result = 0;
-		String sql = "delete from board where password=? and article_num=?";
+		String sql = 
+				"DELETE FROM BOARD "
+				+ "WHERE ARTICLE_NUM=?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, pw);
-			pstmt.setInt(2, articleNum);
+			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();//SQL ½ÇÇà
 		} catch (SQLException e) {
+			System.out.println("dao delete ¿¡·¯");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
 			closeCon();
 		}
-		
 		return result;
 	}
 }

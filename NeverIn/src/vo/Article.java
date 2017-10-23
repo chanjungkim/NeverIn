@@ -10,18 +10,15 @@ public class Article {
 	private String writer;		// 작성자
 	private int readCount;		// 조회수
 	private String contents;	// 글 내용
-	private String password;	// 글 비밀번호
 	private Date writeDate;		// 작성일시
 /////////////////////////////////////////////////////////
 	// 생성자
-	public Article(int aritlcleNum, String title, String writer, int readCount, String contents, String password,
-			Timestamp writeDate) {
+	public Article(int aritlcleNum, String title, String writer, int readCount, String contents, Timestamp writeDate) {
 		this.aritlcleNum = aritlcleNum;
 		this.title = title;
 		this.writer = writer;
 		this.readCount = readCount;
 		this.contents = contents;
-		this.password = password;
 		this.writeDate = writeDate;
 	}
 	public Article() {
@@ -57,12 +54,6 @@ public class Article {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public Date getWriteDate() {
 		return writeDate;
 	}
@@ -73,6 +64,6 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [aritlcleNum=" + aritlcleNum + ", title=" + title + ", writer=" + writer + ", readCount="
-				+ readCount + ", contents=" + contents + ", password=" + password + ", writeDate=" + writeDate + "]";
+				+ readCount + ", contents=" + contents + ", writeDate=" + writeDate + "]";
 	}	
 }

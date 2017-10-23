@@ -9,56 +9,51 @@ import vo.ArticlePageVO;
 
 public class BoardService {
 	private static final int COUNT_PER_PAGE = 10;
-	// Serviceï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ DB ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½.
-	// ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ dao ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½.
+
 	private BoardDao dao = BoardDao.getInstance();
 ///////////////////////////////////////////////////////////
-	// singleton ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
 	private static BoardService instance = new BoardService();
 	public static BoardService getInstance() {
 		return instance;
 	}
 	private BoardService() {}
 ///////////////////////////////////////////////////////////	
-	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ô½Ã±Ûµï¿½, ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+
 	public ArticlePageVO makeArticlePage(int page) {
-		// ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 		int totalArticleCount = dao.selectArticleCount();
-		
-		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 		int totalPage = totalArticleCount / COUNT_PER_PAGE;
 		if(totalArticleCount%COUNT_PER_PAGE>0) {
 			totalPage++;
 		}
 		
-		// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÇÏ´Ü ½ÃÀÛ ÆäÀÌÁö
 		int startPage = (page-1)/10*10 + 1;
 		
-		// ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÇÏ´Ü ³¡ ÆäÀÌÁö
 		int endPage = startPage+9;
 		if(endPage>totalPage) {
 			endPage = totalPage;
 		}
 		
-		// limit ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		// limit ½ÃÀÛÇà °è»ê
 		int startRow = (page-1)*10;
 		
-		// DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±Ûµï¿½ ï¿½ï¿½È¸
+		// DB ¿¡¼­ ÇöÀç ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Ûµé Á¶È¸
 		List<Article> articleList = 
 			dao.selectArticleList(startRow, COUNT_PER_PAGE);
 		
-		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½Û¾ï¿½ ï¿½Ï·ï¿½
+		// ÇÑ ÆäÀÌÁö¿¡ º¸¿©Áú ¸ðµç µ¥ÀÌÅÍ ´ã¾Æ¼­ ÀÛ¾÷ ¿Ï·á
 		return new ArticlePageVO
 			(articleList, startPage, endPage, totalPage, page);
 	}
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿Ï¼ï¿½ articleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ß°ï¿½
+	// ¼­ºí¸´ÀÌ Àü´ÞÇÑ ¹Ì¿Ï¼º article¿¡ ³ª¸ÓÁö °ª Ã¤¿ö¼­ DB¿¡Ãß°¡
 	public boolean writeArticle(Article article) {
 		article.setReadCount(0);
 		article.setWriteDate(new Date());
 		
-		// dao ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Û¾ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
+		// dao ÇÑÅ× Ãß°¡ÀÛ¾÷ ½ÃÅ³ Â÷·Ê
 		int insertResult = dao.insert(article);
 		if(insertResult==1) {
 			return true;
@@ -67,37 +62,44 @@ public class BoardService {
 		}		
 	}
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+
 	public Article readAndReadCount(int articleNum) {
 		Article article = null;
 		if(dao.updateReadCount(articleNum)==1) {
-			// ï¿½Ã¹Ù¸ï¿½ ï¿½Û¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
-			// ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ select ï¿½Øµï¿½ ï¿½ï¿½.
+
 			article = dao.select(articleNum);
 		}
 		return article;
 	}
 	
-	// ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¸ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½
+
 	public Article readWithoutReadCount(int articleNum) {
 		return dao.select(articleNum);
 	}
 	
-	public boolean passwordCheckUpdate(Article updateArticle) {
+
+	public boolean idCheckUpdate(Article updateArticle) {
 		updateArticle.setWriteDate(new Date());
 		
+
 		if(dao.update(updateArticle)==1) {
 			return true;
 		}else {
 			return false;
 		}
 	}
-	public boolean delete(String pw, int articleNum) {
-		if(dao.delete(pw,articleNum)==1) {
+	
+	public boolean delete(int articleNum) {
+		if(dao.delete(articleNum)==1) {
 			return true;
 		}else {
 			return false;
 		}
 	}
 }
+
+
+
+
+
+
