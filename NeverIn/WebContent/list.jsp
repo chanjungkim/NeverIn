@@ -9,11 +9,12 @@
 p{
 	width: 4000px;
 	height: 4000px;
+	background-color: green;
 }
 </style>
 </head>
 <body>
-<jsp:include page="header.jsp">
+<jsp:include page="header.jsp"/>
 
 <p>여기는 리스트</p>
 </body>
