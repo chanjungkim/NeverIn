@@ -53,7 +53,6 @@ button{
 </style>
 </head>
 <body>
-
 	<nav></nav>
 	<div class="main-panel">
 		<div class="panel panel-default login-panel">

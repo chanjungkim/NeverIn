@@ -51,7 +51,7 @@
  
     <div id="wrap">
         <div id="header">
-            <jsp:include page="Header.jsp" />
+			<jsp:include page="header.jsp"/>
         </div>
         <div id="main">
             <jsp:include page="<%=contentPage%>" />
