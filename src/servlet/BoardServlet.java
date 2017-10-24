@@ -98,7 +98,7 @@ public class BoardServlet extends HttpServlet{
 		if(type.equals("write")) {
 			Article article = new Article();
 			article.setTitle(request.getParameter("title"));
-			article.setWriter(request.getParameter("${sessionScope.loginId}"));
+			article.setWriter(request.getParameter("writer"));
 			article.setContents(request.getParameter("contents"));
 			if(service.writeArticle(article)) {
 				path = "qa/write_success.jsp";
