@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.BoardService;
+import service.ReplyService;
 import vo.Article;
 import vo.ArticlePageVO;
+import vo.Reply;
 
 @WebServlet("/board")
 public class BoardServlet extends HttpServlet{
@@ -19,7 +22,7 @@ public class BoardServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	private BoardService service = BoardService.getInstance();
-
+	private ReplyService replyService = ReplyService.getInstance();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String type = request.getParameter("type");
@@ -35,7 +38,7 @@ public class BoardServlet extends HttpServlet{
 			
 			ArticlePageVO articlePage = 
 					service.makeArticlePage(page);
-			
+
 			request.setAttribute("articlePage", articlePage);
 			
 			path = "qa/board_list.jsp";
@@ -44,6 +47,8 @@ public class BoardServlet extends HttpServlet{
 		}else if(type.equals("read")) {
 			String articleNumStr = 
 					request.getParameter("articleNum");
+			
+
 			int articleNum = 0;
 			if(articleNumStr!=null && articleNumStr.length()>0) {
 				articleNum = Integer.parseInt(articleNumStr);
@@ -52,6 +57,9 @@ public class BoardServlet extends HttpServlet{
 					service.readAndReadCount(articleNum);
 			
 			if(article != null) {
+				ArrayList<Reply> replyList = replyService.getReplyList(articleNum);
+				
+				request.setAttribute("replyList", replyList);
 				request.setAttribute("article", article);
 				path = "qa/read.jsp";
 			} else {

@@ -1,4 +1,6 @@
 <%@page import="vo.Article"%>
+<%@page import="vo.Reply"%>
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
@@ -10,7 +12,6 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"></c:set>
-
 <%
 	Article article = 
 				(Article) request.getAttribute("article");
@@ -43,6 +44,20 @@
 			<td><%=article.getContents()%></td>
 		</tr>
 	</table>
+	<c:forEach var="reply" items="${replyList}">
+		<table border="1">
+			<tr>
+				<td colspan="2">${reply.writer}님의 답변입니다.</td>
+			</tr>
+			<tr>
+				<td>${reply.writer}</td>
+				<td>${reply.writeTime}</td>
+			</tr>
+			<tr>
+				<td colspan="2">${reply.contents}</td>
+			</tr>
+		</table>
+	</c:forEach>
 	<c:if test="${sessionScope.loginId == writer}" >	
 	<a href=
 	"<%=request.getContextPath()%>/board?type=updateForm&articleNum=<%=article.getAritlcleNum()%>">

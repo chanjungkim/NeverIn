@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import vo.Article;
 import vo.Reply;
@@ -55,36 +56,33 @@ public class ReplyDao {
 		
 	}
 ///////////////////////////////////////////////////////////
-	public Article select(int articleNum) {
-		makeConnection();
-		String sql = 
-			"SELECT ARTICLE_NUM,TITLE,WRITER,"
-			+ "CONTENTS,write_time,READ_COUNT FROM BOARD "
-			+ "WHERE ARTICLE_NUM=?";
-		Article article = null;
+	public ArrayList<Reply> select(int articleNum) {
+		con=DBUtil.makeConnection();
+		String sql = "SELECT WRITER, CONTENTS, WRITE_TIME FROM REPLY WHERE ARTICLE_NUM = ?";
 		
+		ArrayList<Reply> list = new ArrayList<>();
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL 실행
 			
-			if(rs.next()) {
-				article = new Article();
-				article.setAritlcleNum(rs.getInt(1));
-				article.setTitle(rs.getString(2));
-				article.setWriter(rs.getString(3));
-				article.setContents(rs.getString(4));
-				article.setWriteDate(rs.getTimestamp(5));
-				article.setReadCount(rs.getInt(6));
+			rs = pstmt.executeQuery();
+					
+			while(rs.next()) {			
+				Reply reply = new Reply();
+				reply.setWriter(rs.getString(1));
+				reply.setContents(rs.getString(2));
+				reply.setWriteTime(rs.getTimestamp(3));
+				list.add(reply);
 			}
+			System.out.println(articleNum+"의 reply 사이즈: "+list.size());
 		} catch (SQLException e) {
-			System.out.println("dao select 에러");
+			System.out.println("reply dao select 에러");
 			e.printStackTrace();
 		} finally {
-			closeRs();
-			closePstmt();
-			closeCon();
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
 		}
-		return article;
-	}	
+		return list;
+	}
 }

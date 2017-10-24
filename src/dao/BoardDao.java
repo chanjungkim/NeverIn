@@ -196,7 +196,7 @@ public class BoardDao {
 		makeConnection();
 		String sql = 
 			"SELECT ARTICLE_NUM,TITLE,WRITER,"
-			+ "CONTENTS,write_time,READ_COUNT FROM BOARD "
+			+ "CONTENTS, write_time,READ_COUNT FROM BOARD "
 			+ "WHERE ARTICLE_NUM=?";
 		Article article = null;
 		
