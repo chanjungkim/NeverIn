@@ -6,9 +6,7 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-
-	<form action="<%=request.getContextPath()%>/board" 
-												method="post">
+	<form action="<%=request.getContextPath()%>/board" method="post">
 		<input type="hidden" name="type" value="write">												
 	<table border="1">
 		<tr>
