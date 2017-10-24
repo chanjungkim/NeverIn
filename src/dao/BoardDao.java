@@ -14,17 +14,17 @@ import java.util.List;
 import vo.Article;
 
 public class BoardDao {
-	// DB Á¢¼Ó °ü·Ã ¹®ÀÚ¿­ »ó¼öµé.
+	// DB ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	private static final String DB_DRIVER = 
 							"com.mysql.jdbc.Driver";
 	private static final String DB_URL = 
-							"jdbc:mysql://127.0.0.1:3306/jsp";
+							"jdbc:mysql://127.0.0.1:3306/pro";
 	private static final String DB_ID = 
 							"root";
 	private static final String DB_PW = 
 							"sds1501";
 ////////////////////////////////////////////////////////////	
-	// singleton ÆÐÅÏ Àû¿ë
+	// singleton ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private static BoardDao instance = new BoardDao();
 	public static BoardDao getInstance() {
 		return instance;
@@ -33,12 +33,12 @@ public class BoardDao {
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("mysql µå¶óÀÌ¹ö ·Îµù ¿À·ù");
+			System.out.println("mysql ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 	}
 ////////////////////////////////////////////////////////////	
-	// DB ¿¬°á, ÇØÁ¦ °ü·Ã ÇÊµå¿Í ¸Þ¼Òµåµé
+	// DB ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ ï¿½Þ¼Òµï¿½ï¿½
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -48,7 +48,7 @@ public class BoardDao {
 			con = DriverManager.getConnection
 								(DB_URL, DB_ID, DB_PW);
 		} catch (SQLException e) {
-			System.out.println("Ä¿³Ø¼Ç »ý¼º ¿À·ù");
+			System.out.println("Ä¿ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		}
 	}
@@ -81,20 +81,20 @@ public class BoardDao {
 	}
 ////////////////////////////////////////////////////////////
 
-	// 1. ÃÑ °Ô½Ã±ÛÀÇ °¹¼ö Á¶È¸
+	// 1. ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	public int selectArticleCount() {
 		makeConnection();
 		String sql = "SELECT COUNT(*) FROM BOARD";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // sql ½ÇÇà
+			rs = pstmt.executeQuery(); // sql ï¿½ï¿½ï¿½ï¿½
 			
-			// °á°ú ¼ýÀÚ ÇÏ³ª ¾ò±â
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao count ¿¡·¯");
+			System.out.println("dao count ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -104,7 +104,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	// 2. Æ¯Á¤ ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Û Á¶È¸
+	// 2. Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸
 	public List<Article> selectArticleList
 							(int startRow, int count){
 		makeConnection();
@@ -118,7 +118,7 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, count);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ï¿½ï¿½ï¿½ï¿½
 			
 			while(rs.next()) {
 				Article article = new Article();
@@ -132,7 +132,7 @@ public class BoardDao {
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao selectArticleList ¿¡·¯");
+			System.out.println("dao selectArticleList ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -143,7 +143,7 @@ public class BoardDao {
 	}
 	
 //////////////////////////////////////////////////////////
-	// ±Û¾²±â ¸Þ¼Òµå
+	// ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int insert(Article article) {
 		makeConnection();
 		String sql = "INSERT INTO BOARD"
@@ -160,9 +160,9 @@ public class BoardDao {
 			pstmt.setTimestamp(5, 
 				new Timestamp(article.getWriteDate().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ï¿½ï¿½ï¿½ï¿½
 		} catch (SQLException e) {
-			System.out.println("dao insert ¿¡·¯");
+			System.out.println("dao insert ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -172,7 +172,7 @@ public class BoardDao {
 	}
 //////////////////////////////////////////////////////////
 
-	// 1. Á¶È¸¼ö Áõ°¡
+	// 1. ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int updateReadCount(int articleNum) {
 		makeConnection();
 		String sql = 
@@ -183,9 +183,9 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà			
+			result = pstmt.executeUpdate(); // SQL ï¿½ï¿½ï¿½ï¿½			
 		} catch (SQLException e) {
-			System.out.println("dao update ¿¡·¯");
+			System.out.println("dao update ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -193,7 +193,7 @@ public class BoardDao {
 		}
 		return result;
 	}
-	// 2. ÇØ´ç ¹øÈ£ÀÇ Article Á¶È¸
+	// 2. ï¿½Ø´ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Article ï¿½ï¿½È¸
 	public Article select(int articleNum) {
 		makeConnection();
 		String sql = 
@@ -205,7 +205,7 @@ public class BoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ï¿½ï¿½ï¿½ï¿½
 			
 			if(rs.next()) {
 				article = new Article();
@@ -217,7 +217,7 @@ public class BoardDao {
 				article.setReadCount(rs.getInt(6));
 			}
 		} catch (SQLException e) {
-			System.out.println("dao select ¿¡·¯");
+			System.out.println("dao select ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -227,7 +227,7 @@ public class BoardDao {
 		return article;
 	}	
 //////////////////////////////////////////////////////////
-	// ¼öÁ¤ÇÏ±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public int update(Article article) {
 		makeConnection();
 		int result = 0;
@@ -245,9 +245,9 @@ public class BoardDao {
 						(article.getWriteDate().getTime()));
 			pstmt.setInt(4, article.getAritlcleNum());
 			
-			result = pstmt.executeUpdate();//SQL ½ÇÇà
+			result = pstmt.executeUpdate();//SQL ï¿½ï¿½ï¿½ï¿½
 		} catch (SQLException e) {
-			System.out.println("dao update ¿¡·¯");
+			System.out.println("dao update ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -256,7 +256,7 @@ public class BoardDao {
 		return result;
 	}
 /////////////////////////////////////////////////////////
-	// »èÁ¦ÇÏ±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public int delete(int articleNum) {
 		makeConnection();
 		int result = 0;
@@ -267,9 +267,9 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate();//SQL ½ÇÇà
+			result = pstmt.executeUpdate();//SQL ï¿½ï¿½ï¿½ï¿½
 		} catch (SQLException e) {
-			System.out.println("dao delete ¿¡·¯");
+			System.out.println("dao delete ï¿½ï¿½ï¿½ï¿½");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
