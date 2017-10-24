@@ -83,7 +83,7 @@ button{
 								<td></td>
 							</tr>
 							<tr>
-								<td colspan="2"><input type="text" id="id" class="form-control" placeholder="아이디를 입력하세요.">
+								<td colspan="2"><input name="id" type="text" class="form-control" placeholder="아이디를 입력하세요.">
 								</td>
 							</tr>
 							<tr>
@@ -91,7 +91,7 @@ button{
 								<td></td>							
 							</tr>
 							<tr>
-								<td colspan="2"><input type="password" id="pw" class="form-control"
+								<td colspan="2"><input name="pw" type="password" class="form-control"
 								placeholder="비밀번호를 입력하세요.">
 								</td>
 							</tr>
@@ -101,14 +101,14 @@ button{
 							</tr>
 							<tr>
 								<td colspan="2">
-									<button type="submit" class="btn btn-default"">로그인</button>
+									<input type="submit" class="btn btn-default" value="로그인">
+									<input type="hidden" name="task" value="login">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
 									  <!-- Trigger the modal with a button -->
-									  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">회원 가입</button>
-									<input type="hidden" name="task" value="login">			  
+									  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">회원 가입</button>	  
 								</td>
 							</tr>
 						</table>						

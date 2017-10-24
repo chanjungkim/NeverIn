@@ -38,7 +38,7 @@ public class MemberServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+		System.out.println("Member > doPost() 실행");
 		
 		request.setCharacterEncoding("euc-kr");
 		String task = request.getParameter("task");
@@ -59,14 +59,15 @@ public class MemberServlet extends HttpServlet{
 		} else if(task.equals("login")) {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
+			System.out.println("전달된 로그인 정보: id: "+id+" pw:"+pw);
 			String loginId = service.login(id,pw);
 			if(loginId!=null) {
 				// �α��� �� ���̵� ���ǿ� ����
 				HttpSession session = request.getSession();
 				session.setAttribute("loginId", loginId);
-				path = "login_success.jsp";
+				path = "join/login_success.jsp";
 			}else {
-				path = "login_fail.jsp";
+				path = "join/login_fail.jsp";
 			}
 		}
 		
