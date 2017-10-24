@@ -41,10 +41,10 @@ public class BoardServlet extends HttpServlet{
 			request.setAttribute("articlePage", articlePage);
 			
 			// �Խ��� ��� html ȭ���� ����� jsp���� forward
-			path = "board_list.jsp";
+			path = "qa/board_list.jsp";
 		}else if(type.equals("writeForm")) {
 			// �� �Է� ȭ��html �����ϱ�
-			path = "write_form.jsp";
+			path = "qa/write_form.jsp";
 		}else if(type.equals("read")) {
 			// �б� ��û �޾��� �� �� ��ȣ �Ķ���͵� �޾ƿ���
 			String articleNumStr = 
@@ -60,9 +60,9 @@ public class BoardServlet extends HttpServlet{
 			
 			if(article != null) {
 				request.setAttribute("article", article);
-				path = "read.jsp";
+				path = "qa/read.jsp";
 			} else {
-				path = "article_not_found.jsp";
+				path = "qa/article_not_found.jsp";
 			}
 		} else if(type.equals("updateForm")) {
 			// ���б⿡�� �����ϱ� ������ �� �۹�ȣ �ޱ�
@@ -80,7 +80,7 @@ public class BoardServlet extends HttpServlet{
 			
 			request.setAttribute("original", original);
 			
-			path = "update_form.jsp";
+			path = "qa/update_form.jsp";
 		} else if(type.equals("deleteForm")) {
 			// ���б⿡�� �����ϱ� ������ �� �۹�ȣ �ޱ�
 			String articleNumStr = 
@@ -92,7 +92,7 @@ public class BoardServlet extends HttpServlet{
 			}
 			// ������ �� ��ȣ�� delete_form.jsp�� ����
 			request.setAttribute("articleNum", articleNum);
-			path = "delete_form.jsp";
+			path = "qa/delete_form.jsp";
 		}
 		
 		RequestDispatcher dispatcher = 
@@ -114,9 +114,9 @@ public class BoardServlet extends HttpServlet{
 			article.setContents(request.getParameter("contents"));
 			// �������� �Ͻ�Ű�� ������ �ϸ� ��.
 			if(service.writeArticle(article)) {
-				path = "write_success.jsp";
+				path = "qa/write_success.jsp";
 			}else {
-				path = "write_fail.jsp";
+				path = "qa/write_fail.jsp";
 			}
 		}else if(type.equals("update")) {
 			Article updateArticle = new Article();
@@ -133,9 +133,9 @@ public class BoardServlet extends HttpServlet{
 			if(service.idCheckUpdate(updateArticle)) {
 				request.setAttribute
 				("articleNum", updateArticle.getAritlcleNum());
-				path = "update_success.jsp";
+				path = "qa/update_success.jsp";
 			}else {
-				path = "update_fail.jsp";
+				path = "qa/update_fail.jsp";
 			}			
 		}else if(type.equals("delete")) {
 
@@ -147,9 +147,9 @@ public class BoardServlet extends HttpServlet{
 			}
 			// ���񽺿��� �����϶�� �ϱ�
 			if(service.delete(articleNum)) {
-				path = "delete_success.jsp";
+				path = "qa/delete_success.jsp";
 			}else {
-				path = "delete_fail.jsp";
+				path = "qa/delete_fail.jsp";
 			}
 		}
 		
