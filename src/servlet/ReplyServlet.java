@@ -24,11 +24,16 @@ public class ReplyServlet extends HttpServlet{
 			String articleNum=request.getParameter("articleNum");
 			request.setAttribute("articleNum", articleNum);
 			path="qa/reply_form.jsp";
+		}else if(type==null) {
+			
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	
 	}
+	
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,6 +45,14 @@ public class ReplyServlet extends HttpServlet{
 			reply.setWriter(request.getParameter("writer"));
 			reply.setContents(request.getParameter("contents"));
 			reply.setArticleNum(Integer.parseInt(request.getParameter("articleNum")));
+			if(service.writeReply(reply)) {
+				path="qa/reply_success.jsp";
+			}else {
+				path="qa/reply_fail.jsp";
+			}
 		}
+		
+		RequestDispatcher dispatcher=request.getRequestDispatcher(path);
+		dispatcher.forward(request, response);
 	}
 }

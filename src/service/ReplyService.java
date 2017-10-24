@@ -24,7 +24,7 @@ public class ReplyService {
     public ArrayList<Reply> getReplyList(int articleNum){
     	return dao.select(articleNum);
     }
-    public boolean writeArticle(Reply reply) {
+    public boolean writeReply(Reply reply) {
 		reply.setWriteTime(new Date());
 		
 		// dao 한테 추가작업 시킬 차례
