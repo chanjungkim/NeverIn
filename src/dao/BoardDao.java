@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import vo.Article;
@@ -157,8 +155,8 @@ public class BoardDao {
 			pstmt.setString(2, article.getWriter());
 			pstmt.setString(3, article.getContents());
 			pstmt.setInt(4, article.getReadCount());
-			pstmt.setTimestamp(5, 
-				new Timestamp(article.getWriteDate().getTime()));
+			pstmt.setTimestamp(5,
+					new Timestamp(article.getWriteDate().getTime()));
 			
 			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {

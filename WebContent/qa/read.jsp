@@ -57,5 +57,11 @@
 	"<%=request.getContextPath()%>/board?type=boardList">
 		[게시판 목록으로]
 	</a>
+	<c:if test="${sessionScope.loginId != writer}" >	
+	<a href=
+	"<%=request.getContextPath()%>/board?type=replyForm&articleNum=<%=article.getAritlcleNum()%>">
+		[답변하기]
+	</a>
+	</c:if>
 </body>
 </html>
