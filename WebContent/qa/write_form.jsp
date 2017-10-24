@@ -6,7 +6,9 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-	<form action="<%=request.getContextPath()%>/board" method="post">
+
+	<form action="<%=request.getContextPath()%>/board" 
+												method="post">
 		<input type="hidden" name="type" value="write">												
 	<table border="1">
 		<tr>
@@ -18,7 +20,7 @@
 		<tr>
 			<td>ÀÛ¼ºÀÚ:</td>
 			<td>
-				<input type="text" name="writer" size="10">
+				<input type="text" name="writer" value="${sessionScope.loginId }" size="10">
 			</td>
 		</tr>
 		<tr>

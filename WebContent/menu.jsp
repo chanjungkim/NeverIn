@@ -22,7 +22,6 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 </style>
 </head>
 <body>
-<jsp:include page="header.jsp"/> 
 <c:set var="myContextPath" 
 			value="${pageContext.request.contextPath}"/>
 	
