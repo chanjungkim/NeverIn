@@ -74,7 +74,7 @@
 	</a>
 	<c:if test="${sessionScope.loginId != writer}" >	
 	<a href=
-	"<%=request.getContextPath()%>/board?type=replyForm&articleNum=<%=article.getAritlcleNum()%>">
+	"<%=request.getContextPath()%>/reply?type=replyForm&articleNum=<%=article.getAritlcleNum()%>">
 		[답변하기]
 	</a>
 	</c:if>

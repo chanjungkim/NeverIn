@@ -1,6 +1,7 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.ReplyDao;
 import vo.Article;
@@ -23,4 +24,15 @@ public class ReplyService {
     public ArrayList<Reply> getReplyList(int articleNum){
     	return dao.select(articleNum);
     }
+    public boolean writeArticle(Reply reply) {
+		reply.setWriteTime(new Date());
+		
+		// dao 한테 추가작업 시킬 차례
+		int insertResult = dao.insert(reply);
+		if(insertResult==1) {
+			return true;
+		}else {
+			return false;
+		}		
+	}
 }
