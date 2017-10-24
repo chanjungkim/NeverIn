@@ -145,7 +145,7 @@ public class BoardDao {
 	public int insert(Article article) {
 		makeConnection();
 		String sql = "INSERT INTO BOARD"
-				+ "(TITLE,WRITER,CONTENTS,READ_COUNT,"
+				+ "(TITLE,WRITER,CONTENTS,file_path,READ_COUNT,"
 				+ "WRITE_TIME) VALUES(?,?,?,?,?)";
 		int result = 0;
 		

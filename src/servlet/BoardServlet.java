@@ -1,5 +1,6 @@
 package servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import service.BoardService;
 import service.ReplyService;
@@ -96,18 +100,29 @@ public class BoardServlet extends HttpServlet{
 				request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
 	}
-////////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
 		request.setCharacterEncoding("euc-kr");
 		String type = request.getParameter("type");
 		String path = "";
-		
+		 String uploadFolder = "c://";
 		if(type.equals("write")) {
 			Article article = new Article();
 			article.setTitle(request.getParameter("title"));
 			article.setWriter(request.getParameter("writer"));
 			article.setContents(request.getParameter("contents"));
+			
+	         
+		        MultipartRequest mReq = 
+		            new MultipartRequest
+		                (request, uploadFolder, 
+		                1024*1024*40, new DefaultFileRenamePolicy());
+		         
+		        File uploadFile = 
+		                mReq.getFile("myFile");
 			if(service.writeArticle(article)) {
 				path = "qa/write_success.jsp";
 			}else {

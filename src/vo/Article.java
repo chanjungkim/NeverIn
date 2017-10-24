@@ -3,27 +3,31 @@ package vo;
 import java.sql.Timestamp;
 import java.util.Date;
 
-// °Ô½Ã±Û VO Å¬·¡½º
+// ï¿½Ô½Ã±ï¿½ VO Å¬ï¿½ï¿½ï¿½ï¿½
 public class Article {
-	private int aritlcleNum;	// ±Û ¹øÈ£
-	private String title;		// ±Û Á¦¸ñ
-	private String writer;		// ÀÛ¼ºÀÚ
-	private int readCount;		// Á¶È¸¼ö
-	private String contents;	// ±Û ³»¿ë
-	private Date writeDate;		// ÀÛ¼ºÀÏ½Ã
-/////////////////////////////////////////////////////////
-	// »ý¼ºÀÚ
-	public Article(int aritlcleNum, String title, String writer, int readCount, String contents, Timestamp writeDate) {
+	private int aritlcleNum;	// ï¿½ï¿½ ï¿½ï¿½È£
+	private String title;		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private String writer;		// ï¿½Û¼ï¿½ï¿½ï¿½
+	private int readCount;		// ï¿½ï¿½È¸ï¿½ï¿½
+	private String filePath;
+	private String contents;	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	private Date writeDate;		// ï¿½Û¼ï¿½ï¿½Ï½ï¿½
+	//////////////////////////////////////////////////////////////////////////////////////////
+	public Article(int aritlcleNum, String title, String writer, int readCount, String filePath, String contents,
+			Date writeDate) {
+		super();
 		this.aritlcleNum = aritlcleNum;
 		this.title = title;
 		this.writer = writer;
 		this.readCount = readCount;
+		this.filePath = filePath;
 		this.contents = contents;
 		this.writeDate = writeDate;
 	}
 	public Article() {
+		
 	}
-//////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////////////////////////
 	public int getAritlcleNum() {
 		return aritlcleNum;
 	}
@@ -48,6 +52,12 @@ public class Article {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 	public String getContents() {
 		return contents;
 	}
@@ -60,10 +70,12 @@ public class Article {
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
-///////////////////////////////////////////////////////////	
+	
+/////////////////////////////////////////////////////////
 	@Override
 	public String toString() {
 		return "Article [aritlcleNum=" + aritlcleNum + ", title=" + title + ", writer=" + writer + ", readCount="
-				+ readCount + ", contents=" + contents + ", writeDate=" + writeDate + "]";
-	}	
+				+ readCount + ", filePath=" + filePath + ", contents=" + contents + ", writeDate=" + writeDate + "]";
+	}
+	
 }
