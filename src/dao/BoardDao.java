@@ -14,17 +14,17 @@ import java.util.List;
 import vo.Article;
 
 public class BoardDao {
-	// DB ���� ���� ���ڿ� �����.
+	// DB 접속 관련 문자열 상수들.
 	private static final String DB_DRIVER = 
 							"com.mysql.jdbc.Driver";
 	private static final String DB_URL = 
-							"jdbc:mysql://127.0.0.1:3306/pro";
+							"jdbc:mysql://127.0.0.1:3306/jsp";
 	private static final String DB_ID = 
 							"root";
 	private static final String DB_PW = 
 							"sds1501";
 ////////////////////////////////////////////////////////////	
-	// singleton ���� ����
+	// singleton 패턴 적용
 	private static BoardDao instance = new BoardDao();
 	public static BoardDao getInstance() {
 		return instance;
@@ -33,12 +33,12 @@ public class BoardDao {
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("mysql ����̹� �ε� ����");
+			System.out.println("mysql 드라이버 로딩 오류");
 			e.printStackTrace();
 		}
 	}
 ////////////////////////////////////////////////////////////	
-	// DB ����, ���� ���� �ʵ�� �޼ҵ��
+	// DB 연결, 해제 관련 필드와 메소드들
 	private Connection con;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -48,7 +48,7 @@ public class BoardDao {
 			con = DriverManager.getConnection
 								(DB_URL, DB_ID, DB_PW);
 		} catch (SQLException e) {
-			System.out.println("Ŀ�ؼ� ���� ����");
+			System.out.println("커넥션 생성 오류");
 			e.printStackTrace();
 		}
 	}
@@ -81,20 +81,20 @@ public class BoardDao {
 	}
 ////////////////////////////////////////////////////////////
 
-	// 1. �� �Խñ��� ���� ��ȸ
+	// 1. 총 게시글의 갯수 조회
 	public int selectArticleCount() {
 		makeConnection();
 		String sql = "SELECT COUNT(*) FROM BOARD";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // sql ����
+			rs = pstmt.executeQuery(); // sql 실행
 			
-			// ��� ���� �ϳ� ���
+			// 결과 숫자 하나 얻기
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao count ����");
+			System.out.println("dao count 에러");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -104,7 +104,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	// 2. Ư�� �������� ������ �Խñ� ��ȸ
+	// 2. 특정 페이지에 보여질 게시글 조회
 	public List<Article> selectArticleList
 							(int startRow, int count){
 		makeConnection();
@@ -118,7 +118,7 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, count);
-			rs = pstmt.executeQuery(); // SQL ����
+			rs = pstmt.executeQuery(); // SQL 실행
 			
 			while(rs.next()) {
 				Article article = new Article();
@@ -132,7 +132,7 @@ public class BoardDao {
 				articleList.add(article);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao selectArticleList ����");
+			System.out.println("dao selectArticleList 에러");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -143,7 +143,7 @@ public class BoardDao {
 	}
 	
 //////////////////////////////////////////////////////////
-	// �۾��� �޼ҵ�
+	// 글쓰기 메소드
 	public int insert(Article article) {
 		makeConnection();
 		String sql = "INSERT INTO BOARD"
@@ -160,9 +160,9 @@ public class BoardDao {
 			pstmt.setTimestamp(5, 
 				new Timestamp(article.getWriteDate().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ����
+			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {
-			System.out.println("dao insert ����");
+			System.out.println("dao insert 에러");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -172,7 +172,7 @@ public class BoardDao {
 	}
 //////////////////////////////////////////////////////////
 
-	// 1. ��ȸ�� ����
+	// 1. 조회수 증가
 	public int updateReadCount(int articleNum) {
 		makeConnection();
 		String sql = 
@@ -183,9 +183,9 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate(); // SQL ����			
+			result = pstmt.executeUpdate(); // SQL 실행			
 		} catch (SQLException e) {
-			System.out.println("dao update ����");
+			System.out.println("dao update 에러");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -193,7 +193,7 @@ public class BoardDao {
 		}
 		return result;
 	}
-	// 2. �ش� ��ȣ�� Article ��ȸ
+	// 2. 해당 번호의 Article 조회
 	public Article select(int articleNum) {
 		makeConnection();
 		String sql = 
@@ -205,7 +205,7 @@ public class BoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL ����
+			rs = pstmt.executeQuery(); // SQL 실행
 			
 			if(rs.next()) {
 				article = new Article();
@@ -217,7 +217,7 @@ public class BoardDao {
 				article.setReadCount(rs.getInt(6));
 			}
 		} catch (SQLException e) {
-			System.out.println("dao select ����");
+			System.out.println("dao select 에러");
 			e.printStackTrace();
 		} finally {
 			closeRs();
@@ -227,7 +227,7 @@ public class BoardDao {
 		return article;
 	}	
 //////////////////////////////////////////////////////////
-	// �����ϱ�
+	// 수정하기
 	public int update(Article article) {
 		makeConnection();
 		int result = 0;
@@ -245,9 +245,9 @@ public class BoardDao {
 						(article.getWriteDate().getTime()));
 			pstmt.setInt(4, article.getAritlcleNum());
 			
-			result = pstmt.executeUpdate();//SQL ����
+			result = pstmt.executeUpdate();//SQL 실행
 		} catch (SQLException e) {
-			System.out.println("dao update ����");
+			System.out.println("dao update 에러");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
@@ -256,7 +256,7 @@ public class BoardDao {
 		return result;
 	}
 /////////////////////////////////////////////////////////
-	// �����ϱ�
+	// 삭제하기
 	public int delete(int articleNum) {
 		makeConnection();
 		int result = 0;
@@ -267,9 +267,9 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 			
-			result = pstmt.executeUpdate();//SQL ����
+			result = pstmt.executeUpdate();//SQL 실행
 		} catch (SQLException e) {
-			System.out.println("dao delete ����");
+			System.out.println("dao delete 에러");
 			e.printStackTrace();
 		} finally {
 			closePstmt();
