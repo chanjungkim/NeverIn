@@ -1,31 +1,31 @@
 package service;
-
+ 
 import dao.MemberDao;
 import vo.Member;
-
+ 
 public class MemberService {
-	// ¼­ºñ½º°¡ ÀÛ¾÷ ¼öÇà½Ã DB ¸í·É¾î ½ÇÇà ÇÊ¿äÇÒ ¶§ »ç¿ëÇÒ °´Ã¼
-	private MemberDao dao = MemberDao.getInstance();
-///////////////////////////////////////////////////////////	
-	// singleton
-	private static MemberService instance;
-	public static MemberService getInstance() {
-		if(instance==null)
-			instance = new MemberService();
-		return instance;
-	}
-	private MemberService() {}
+    // ì„œë¹„ìŠ¤ê°€ ìž‘ì—… ìˆ˜í–‰ì‹œ DB ëª…ë ¹ì–´ ì‹¤í–‰ í•„ìš”í•  ë•Œ ì‚¬ìš©í•  ê°ì²´
+    private MemberDao dao = MemberDao.getInstance();
+/////////////////////////////////////////////////////////// 
+    // singleton
+    private static MemberService instance;
+    public static MemberService getInstance() {
+        if(instance==null)
+            instance = new MemberService();
+        return instance;
+    }
+    private MemberService() {}
 //////////////////////////////////////////////////////////
-	public boolean joinMember(Member member) {
-		if(dao.insert(member)>0) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
-	public String login(String id, String pw) {
-		String loginId = dao.selectIdUsingIdPw(id,pw);
-		return loginId;
-	}
+    public boolean joinMember(Member member) {
+        if(dao.insert(member)>0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+     
+    public String login(String id,String pw) {
+        String loginId = dao.selectIdUsingIdPw(id,pw);
+        return loginId;
+    }
 }

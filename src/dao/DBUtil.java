@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/pro";
+	private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/jsp";
 	private static final String DB_ID = "root";
 	private static final String DB_PW = "sds1501";
 	
@@ -16,7 +16,7 @@ public class DBUtil {
 		try {
 			Class.forName(DB_DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("����̹� �ε�����");
+			System.out.println("드라이버 로딩오류");
 			e.printStackTrace();
 		}
 	}
@@ -27,7 +27,7 @@ public class DBUtil {
 			con = DriverManager.getConnection
 								(DB_URL, DB_ID, DB_PW);
 		} catch (SQLException e) {
-			System.out.println("Ŀ�ؼ� ���� ����");
+			System.out.println("커넥션 생성 오류");
 			e.printStackTrace();
 		}
 		return con;

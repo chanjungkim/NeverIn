@@ -68,7 +68,7 @@
 			
 		</div>
 		<div id="footer"> 
-			<jsp:include page="Footer.jsp" />
+<%-- 			<jsp:include page="Footer.jsp" /> --%>
 		</div>
 	</div>
 	

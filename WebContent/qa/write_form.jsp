@@ -9,7 +9,7 @@
 
 	<form action="<%=request.getContextPath()%>/board" 
 												method="post">
-		<input type="hidden" name="type" value="${sessionScope.loginId}">												
+		<input type="hidden" name="type" value="write">												
 	<table border="1">
 		<tr>
 			<td>Á¦¸ñ:</td>

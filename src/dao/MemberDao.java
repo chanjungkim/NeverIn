@@ -19,31 +19,33 @@ public class MemberDao {
 		return instance;
 	}
 	private MemberDao() {
-		DBUtil.loadDriver(); // mysql ����̹� �ε� 
+		DBUtil.loadDriver(); // mysql 드라이버 로딩 
 	}
 ////////////////////////////////////////////////////////////
-	// DB ����, ���� ���� �ʵ�� �޼ҵ��
+	// DB 연결, 해제 관련 필드와 메소드들
 	private Connection con;
 	private PreparedStatement pstmt;
-	private ResultSet rs;	
+	private ResultSet rs;
+		
+
+
 ////////////////////////////////////////////////////////////
-	// SQL ���� �޼ҵ�
+	// SQL 실행 메소드
 	public int insert(Member member) {
-		con = DBUtil.makeConnection();
-		String sql = "INSERT INTO MEMBER(ID,PW,PHONE,NAME)"
-				+ "VALUES(?,?,?,?)";
+		con=DBUtil.makeConnection();
+		String sql = "INSERT INTO MEMBER(ID,pw,NAME)"
+				+ "VALUES(?,?,?)";
 		int result = 0;
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPw());
-			pstmt.setString(3, member.getPhone());
-			pstmt.setString(4, member.getName());
+			pstmt.setString(2,member.getPw());
+			pstmt.setString(3, member.getName());
 			
-			result = pstmt.executeUpdate(); // SQL ����
+			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {
-			System.out.println("Member dao insert error");
+			System.out.println("Member dao insert 에러");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -53,10 +55,10 @@ public class MemberDao {
 		
 	}
 ///////////////////////////////////////////////////////////
-	public String selectIdUsingIdPw(String id, String pw) {
-		con = DBUtil.makeConnection();
+	public String selectIdUsingIdPw(String id,String pw) {
+		con=DBUtil.makeConnection();
 		String sql = 
-			"SELECT ID FROM MEMBER WHERE ID=? AND PW=?";
+			"SELECT ID FROM MEMBER WHERE ID=? and pw=?";
 		String result = null;
 		
 		try {
@@ -69,7 +71,7 @@ public class MemberDao {
 				result = rs.getString(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("member dao select error");
+			System.out.println("member dao select 에러");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);

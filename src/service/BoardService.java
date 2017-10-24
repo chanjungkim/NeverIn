@@ -27,33 +27,33 @@ public class BoardService {
 			totalPage++;
 		}
 		
-		// ÇÏ´Ü ½ÃÀÛ ÆäÀÌÁö
+		// í•˜ë‹¨ ì‹œì‘ í˜ì´ì§€
 		int startPage = (page-1)/10*10 + 1;
 		
-		// ÇÏ´Ü ³¡ ÆäÀÌÁö
+		// í•˜ë‹¨ ë í˜ì´ì§€
 		int endPage = startPage+9;
 		if(endPage>totalPage) {
 			endPage = totalPage;
 		}
 		
-		// limit ½ÃÀÛÇà °è»ê
+		// limit ì‹œì‘í–‰ ê³„ì‚°
 		int startRow = (page-1)*10;
 		
-		// DB ¿¡¼­ ÇöÀç ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Ûµé Á¶È¸
+		// DB ì—ì„œ í˜„ì¬ í˜ì´ì§€ì— ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ë“¤ ì¡°íšŒ
 		List<Article> articleList = 
 			dao.selectArticleList(startRow, COUNT_PER_PAGE);
 		
-		// ÇÑ ÆäÀÌÁö¿¡ º¸¿©Áú ¸ğµç µ¥ÀÌÅÍ ´ã¾Æ¼­ ÀÛ¾÷ ¿Ï·á
+		// í•œ í˜ì´ì§€ì— ë³´ì—¬ì§ˆ ëª¨ë“  ë°ì´í„° ë‹´ì•„ì„œ ì‘ì—… ì™„ë£Œ
 		return new ArticlePageVO
 			(articleList, startPage, endPage, totalPage, page);
 	}
 
-	// ¼­ºí¸´ÀÌ Àü´ŞÇÑ ¹Ì¿Ï¼º article¿¡ ³ª¸ÓÁö °ª Ã¤¿ö¼­ DB¿¡Ãß°¡
+	// ì„œë¸”ë¦¿ì´ ì „ë‹¬í•œ ë¯¸ì™„ì„± articleì— ë‚˜ë¨¸ì§€ ê°’ ì±„ì›Œì„œ DBì—ì¶”ê°€
 	public boolean writeArticle(Article article) {
 		article.setReadCount(0);
 		article.setWriteDate(new Date());
 		
-		// dao ÇÑÅ× Ãß°¡ÀÛ¾÷ ½ÃÅ³ Â÷·Ê
+		// dao í•œí…Œ ì¶”ê°€ì‘ì—… ì‹œí‚¬ ì°¨ë¡€
 		int insertResult = dao.insert(article);
 		if(insertResult==1) {
 			return true;
