@@ -68,9 +68,13 @@ public class MemberServlet extends HttpServlet{
 			System.out.println("전달된 로그인 정보: id: "+id+" pw:"+pw);
 			String loginId = service.login(id,pw);
 			if(loginId!=null) {
-				// �α��� �� ���̵� ���ǿ� ����
+				Member memberInfo = service.getMemberInfo(loginId);
+				
 				HttpSession session = request.getSession();
+
 				session.setAttribute("loginId", loginId);
+				session.setAttribute("memberInfo", memberInfo);
+				
 				path = "join/login_success.jsp";
 			}else {
 				path = "join/login_fail.jsp";

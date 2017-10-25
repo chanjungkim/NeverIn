@@ -86,6 +86,41 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public Member selectMember(String id) {
+		con=DBUtil.makeConnection();
+		String sql = "SELECT * FROM MEMBER WHERE ID=?";
+
+		Member member = new Member();
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				member.setId(rs.getString(1));
+				member.setPw(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getString(4));
+				member.setGender(rs.getString(5));
+				member.setNickname(rs.getString(6));
+				member.setEmail(rs.getString(7));
+				member.setPhone(rs.getString(8));
+				member.setPoint(rs.getInt(9));
+				member.setLv(rs.getInt(10));
+			}
+		} catch (SQLException e) {
+			System.out.println("member dao select 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return member;
+	}
 }
 
 

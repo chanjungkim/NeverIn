@@ -28,4 +28,9 @@ public class MemberService {
         String loginId = dao.selectIdUsingIdPw(id,pw);
         return loginId;
     }
+    
+    public Member getMemberInfo(String id) {
+    	Member memberInfo = dao.selectMember(id);
+    	return memberInfo;
+    }
 }
