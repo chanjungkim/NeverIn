@@ -21,9 +21,8 @@
 %>
 <body>
 <jsp:include page="../menu.jsp"/>
-
-	<h2>이곳은 심플 게시판 화면 입니다.</h2>
-	<table class="table table-striped table-hover">
+<div class="container">
+	<table class="table table-bordered" >
 		<thead>
 		<tr>
 			<th>글번호</th>
@@ -58,6 +57,12 @@
 	</tbody>	
 	</table>
 <!-- 하단 페이지 링크 걸기 -->
+	<div>
+		<a href=
+		"<%=request.getContextPath()%>/board?type=writeForm">
+			<button>글쓰기</button>
+		</a>
+	</div><br>
 	<div class="text-center">
 		<ul class="pagination">
 		<%
@@ -69,11 +74,7 @@
 		<%	} %>
 		</ul>
 	</div>
-	<div>
-		<a href=
-		"<%=request.getContextPath()%>/board?type=writeForm">
-			<button>글쓰기</button>
-		</a>
+	
 	</div>
 </body>
 </html>

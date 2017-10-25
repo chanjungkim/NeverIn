@@ -8,6 +8,35 @@
 <html>
 <head>
 <title>글 읽기 화면</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>글 작성 화면</title>
+<style type="text/css">
+#writer{
+	background-color: cce;
+}
+#title{
+	background-color: cce;
+}
+#content{
+background-color: cce;
+width: -30%;
+height: 30%;
+}
+#count{
+background-color: cce;
+
+}
+#date{
+background-color: cce;
+
+}
+#num{
+background-color: cce;
+
+}
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -17,41 +46,46 @@
 				(Article) request.getAttribute("article");
 %>
 <c:set var="writer" value="<%=article.getWriter()%>"></c:set>
-
-	<table border="1">
+<div class="container">
+	<table class="table table-bordered">
+		<tr colspin="2">
+			<span class="badge"><h2>Q</h2></span>
+		</tr>
 		<tr>
-			<td>글번호:</td>
+			<td id="num">글번호:</td>
 			<td><%=article.getAritlcleNum()%></td>
 		</tr>
 		<tr>
-			<td>제목:</td>
+			<td id="title">제목:</td>
 			<td><%=article.getTitle()%></td>
 		</tr>
 		<tr>
-			<td>작성자:</td>
+			<td id="writer">작성자:</td>
 			<td><%=article.getWriter()%></td>
 		</tr>
 		<tr>
-			<td>작성일:</td>
+			<td id="date">작성일:</td>
 			<td><%=article.getWriteDate()%></td>
 		</tr>
 		<tr>
-			<td>조회수:</td>
+			<td id="count"">조회수:</td>
 			<td><%=article.getReadCount()%></td>
 		</tr>
 		<tr>
-			<td>내용:</td>
-			<td><%=article.getContents()%></td>
+			<td id="content">내용:</td>
+			<td width="80%" ></style>><%=article.getContents()%></td>
 		</tr>
 	</table>
 	<c:forEach var="reply" items="${replyList}">
-		<table border="1">
+		<table class="table table-bordered">
 			<tr>
-				<td colspan="2">${reply.writer}님의 답변입니다.</td>
+				<td colspan="2">
+				<span class="badge"><h2>A</h2></span>
+				${reply.writer}님의 답변입니다.</td>
 			</tr>
 			<tr>
-				<td>${reply.writer}</td>
-				<td>${reply.writeTime}</td>
+				<td colspan="2"><h4>${reply.writeTime}</h4></td>
+				
 			</tr>
 			<tr>
 				<td colspan="2">${reply.contents}</td>
@@ -78,5 +112,6 @@
 		[답변하기]
 	</a>
 	</c:if>
+	</div>
 </body>
 </html>
