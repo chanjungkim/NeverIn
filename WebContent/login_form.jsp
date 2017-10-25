@@ -129,42 +129,24 @@ button{
 		      <!-- Modal content-->
 		      <div class="modal-content">
 		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
 		          <h4 class="modal-title">회원 가입</h4>
 		        </div>
-				<div class="modal-body" style="height:300px">
+				<div class="modal-body" style="height:600px">
 					<div class="modal-left">
 					
 					</div>
 					<div class="modal-right">
-						<form class="form-horizontal" method="post" action="nverIn/board_list.jsp">
 							<div class="form-group">
-								<table class="table-hover table-managed">
-									<tr>
-										<td>
-											<label>아이디</label><br>
-											<input type="text" placeholder="아이디를 입력하세요." />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label>비밀번호</label><br>
-											<input type="password" placeholder="아이디를 입력하세요." />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label>비밀번호 확인</label><br>
-											<input type="password" placeholder="아이디를 입력하세요." />
-										</td>
-									</tr>
-								</table>
-						        <input type="submit" class="btn btn-default" data-dismiss="modal"></button>		
-							</div>			
-						</form>
+								<form action = "<%=request.getContextPath()%>/member" method="post">
+									<table class="table-hover table-managed">
+										<jsp:include page="join/join_form.jsp"/> 
+									</table>					
+								</form>
+							</div>
 					</div>
 				</div>
 				<div class="modal-footer">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
         		</div>
 		      </div>
 		      

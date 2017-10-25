@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,8 +33,8 @@ public class MemberDao {
 	// SQL 실행 메소드
 	public int insert(Member member) {
 		con=DBUtil.makeConnection();
-		String sql = "INSERT INTO MEMBER(ID,pw,NAME)"
-				+ "VALUES(?,?,?)";
+		String sql = "INSERT INTO MEMBER(ID,PW,NAME,BIRTH,GENDER,NICKNAME,EMAIL,PHONE,POINT,LV)"
+				+ "VALUES(?,?,?,?,?,?,?,?,0,0)";
 		int result = 0;
 		
 		try {
@@ -41,6 +42,12 @@ public class MemberDao {
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2,member.getPw());
 			pstmt.setString(3, member.getName());
+			pstmt.setString(4, member.getBirth());
+			pstmt.setString(5, member.getGender());
+			pstmt.setString(6, member.getNickname());
+			pstmt.setString(7, member.getEmail());
+			pstmt.setString(8, member.getPhone());
+
 			
 			result = pstmt.executeUpdate(); // SQL 실행
 		} catch (SQLException e) {

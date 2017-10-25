@@ -40,7 +40,7 @@ public class MemberServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Member > doPost() 실행");
 		
-		request.setCharacterEncoding("euc-kr");
+		request.setCharacterEncoding("UTF-8");
 		String task = request.getParameter("task");
 		String path = "";
 		
@@ -49,12 +49,18 @@ public class MemberServlet extends HttpServlet{
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
 			member.setName(request.getParameter("name"));
+			member.setBirth(request.getParameter("birth"));
+			member.setGender(request.getParameter("gender"));
+			member.setNickname(request.getParameter("nickname"));
+			member.setEmail(request.getParameter("email"));
 			member.setPhone(request.getParameter("phone"));
 			
+			System.out.println(member);
+			
 			if(service.joinMember(member)) {
-				path = "join_success.jsp";
+				path = "join/join_success.jsp";
 			} else {
-				path = "join_fail.jsp";
+				path = "join/join_fail.jsp";
 			}
 		} else if(task.equals("login")) {
 			String id = request.getParameter("id");
