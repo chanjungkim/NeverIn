@@ -22,11 +22,9 @@ height:100px;
 width:200px
 }
 #logo{
-	position: absolute;
 	left:0px;
 }
 .member-info-container{
-	position: absolute;
 	right: 0px;
 }
 
