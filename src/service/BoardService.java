@@ -97,9 +97,3 @@ public class BoardService {
 		}
 	}
 }
-
-
-
-
-
-

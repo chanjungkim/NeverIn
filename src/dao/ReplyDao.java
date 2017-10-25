@@ -51,8 +51,31 @@ public class ReplyDao {
 			DBUtil.closePstmt(pstmt);
 			DBUtil.closeCon(con);
 		}
+		updateArticle(reply);
+		
 		return result;
 		
+	}
+	public int updateArticle(Reply reply) {
+		con=DBUtil.makeConnection();
+		String sql = "UPDATE BOARD SET REPLY_COUNT=REPLY_COUNT+1 "
+				+ "WHERE ARTICLE_NUM=?";
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reply.getArticleNum());
+			
+			result = pstmt.executeUpdate(); // SQL 실행
+		} catch (SQLException e) {
+			System.out.println("reply dao insert 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		
+		return result;
 	}
 ///////////////////////////////////////////////////////////
 	public ArrayList<Reply> select(int articleNum) {

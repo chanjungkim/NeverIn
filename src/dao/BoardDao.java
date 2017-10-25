@@ -107,7 +107,7 @@ public class BoardDao {
 							(int startRow, int count){
 		makeConnection();
 		String sql = "SELECT ARTICLE_NUM, TITLE,"
-				+ "WRITER, CONTENTS, READ_COUNT,"
+				+ "WRITER, CONTENTS, REPLY_COUNT, READ_COUNT,"
 				+ "write_time FROM BOARD "
 				+ "ORDER BY ARTICLE_NUM DESC LIMIT ?,?";
 		List<Article> articleList = new ArrayList<>();
@@ -124,8 +124,9 @@ public class BoardDao {
 				article.setTitle(rs.getString(2));
 				article.setWriter(rs.getString(3));
 				article.setContents(rs.getString(4));
-				article.setReadCount(rs.getInt(5));
-				article.setWriteDate(rs.getTimestamp(6));
+				article.setReplyCount(rs.getInt(5));
+				article.setReadCount(rs.getInt(6));
+				article.setWriteDate(rs.getTimestamp(7));
 				
 				articleList.add(article);
 			}

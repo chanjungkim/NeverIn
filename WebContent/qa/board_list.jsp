@@ -22,13 +22,14 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 <div class="container">
-	<table class="table table-bordered" >
+	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
+			<th>답변수</th>
 			<th>조회수</th>
 		</tr>
 		</thead>
@@ -50,6 +51,7 @@
 				</td>
 				<td><%=article.getWriter()%></td>
 				<td><%=article.getWriteDate()%></td>
+				<td><%=article.getReplyCount()%></td>
 				<td><%=article.getReadCount()%></td>
 			</tr>
 		<%}%>
@@ -62,7 +64,7 @@
 		"<%=request.getContextPath()%>/board?type=writeForm">
 			<button>글쓰기</button>
 		</a>
-	</div><br>
+	</div>
 	<div class="text-center">
 		<ul class="pagination">
 		<%
@@ -74,8 +76,7 @@
 		<%	} %>
 		</ul>
 	</div>
-	
-	</div>
+</div>
 </body>
 </html>
 

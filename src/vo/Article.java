@@ -12,6 +12,7 @@ public class Article {
 	private String filePath;
 	private String contents;	// �� ����
 	private Date writeDate;		// �ۼ��Ͻ�
+	private int replyCount; 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	public Article(int aritlcleNum, String title, String writer, int readCount, String filePath, String contents,
 			Date writeDate) {
@@ -70,12 +71,18 @@ public class Article {
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
-	
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}	
 /////////////////////////////////////////////////////////
 	@Override
 	public String toString() {
 		return "Article [aritlcleNum=" + aritlcleNum + ", title=" + title + ", writer=" + writer + ", readCount="
-				+ readCount + ", filePath=" + filePath + ", contents=" + contents + ", writeDate=" + writeDate + "]";
+				+ readCount + ", filePath=" + filePath + ", contents=" + contents + ", writeDate=" + writeDate
+				+ ", replyCount=" + replyCount + "]";
 	}
 	
 }
