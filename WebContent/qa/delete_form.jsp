@@ -13,7 +13,7 @@
 %>
 	<form action="<%=request.getContextPath()%>/board" 
 											method="post">
-		글 비밀번호 : 
+
 
 		<input type="submit" value="삭제확인">
 		<input type="hidden" name="type" value="delete">

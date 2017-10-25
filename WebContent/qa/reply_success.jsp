@@ -8,10 +8,8 @@
 <jsp:include page="../header.jsp"/>
 <jsp:include page="../menu.jsp"/>
 
-	<h2>답변 작성이 완료되었습니다.</h2>
-	<a href=
-		"<%=request.getContextPath()%>/board?type=boardList">
-		[게시판 목록으로]
-	</a>
+<%
+		response.sendRedirect(request.getContextPath()+"/board?type=boardList");
+	%>
 </body>
 </html>

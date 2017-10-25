@@ -108,21 +108,11 @@ public class BoardServlet extends HttpServlet{
 		request.setCharacterEncoding("euc-kr");
 		String type = request.getParameter("type");
 		String path = "";
-		 String uploadFolder = "c://";
 		if(type.equals("write")) {
 			Article article = new Article();
 			article.setTitle(request.getParameter("title"));
 			article.setWriter(request.getParameter("writer"));
 			article.setContents(request.getParameter("contents"));
-			
-	         
-		        MultipartRequest mReq = 
-		            new MultipartRequest
-		                (request, uploadFolder, 
-		                1024*1024*40, new DefaultFileRenamePolicy());
-		         
-		        File uploadFile = 
-		                mReq.getFile("myFile");
 			if(service.writeArticle(article)) {
 				path = "qa/write_success.jsp";
 			}else {
