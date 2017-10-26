@@ -15,6 +15,10 @@
 <script type="text/javascript">
 	$(function(){
 		$(document).ready(function(){
+<%-- 			<% String str = (String) request.getAttribute("nickname"); %>  --%>
+<%-- 			alert("<%=str%>"); --%>
+// 			alert("${nickname}")
+// 			alert("${freeboardarticle.title}");
 			commentList();
 		})
 		
@@ -22,9 +26,9 @@
 			var comment = $('#comment').val();
 			$.ajax({
 				type:'post',
-				url:'board/freeboardcomment', 
+				url:'freeboardcomment', 
 // 				url: '${myContextPath}/freeboardcomment', 
-				data:'type=writecomment&nickname=' + ${nickname} + '&freeboardarticleNum='+${freeboardarticle.articleNum}+'&comment='+comment+'&id='+${sessionScope.loginId},
+				data:'type=writecomment&nickname=${nickname}&freeboardarticleNum='+${freeboardarticle.articleNum}+'&comment='+comment+'&id=${sessionScope.loginId}',
 				dataType:'text',
 				success:function(resultData){
 					commentList();
@@ -40,7 +44,7 @@
 			var commentnum = $(this).val();
 			$.ajax({
 				type:'post',
-				url:'board/freeboardcomment', 
+				url:'freeboardcomment', 
 // 				url: ${myContextPath}+'/freeboardcomment', 
 				data:'type=deletecomment&commentnum=' + commentnum,
 				dataType:'text',
@@ -65,7 +69,7 @@
 			
 			$.ajax({
 				type:'post',
-				url:'board/freeboardcomment',
+				url:'freeboardcomment',
 				data:'type=updatecomment&commentnum=' + commentnum+"&contents="+updatecontents,
 				dataType:'text',
 				success:function(resultData){
@@ -85,31 +89,33 @@
 // 		alert(updatecheck);
 		$.ajax({
 			type:'post',
-			url: 'board/freeboardcomment',
+			url: 'freeboardcomment',
 			data:'type=commentList&freeboardarticleNum='+${freeboardarticle.articleNum},
 			dataType:'json',
 			success:function(resultData){
 				var commentList = "<div class='container'>"+
 								"<table class='table table-bordered'>"
-				$.each(resultData, function(index, item){
+// 								alert(resultData);
+					$.each(resultData, function(index, item){
+						commentList += "<tr>"
+						commentList += "<td>" + item['writer'] + "</td>"
+						if(updatecheck == item['commentnum']){
+							commentList += "<td><textarea rows='1' cols='50' id='" + item['commentnum'] + "'>" + item['contents'] + "</textarea>"
+							commentList += "<button id='updatesubmit' value='" + item['commentnum'] + "'>완료</button></td>"
+						}else{
+							commentList += "<td>" + item['contents'] + "</td>"
+						}
+						commentList += "<td>"
+						if(item['id']=="${sessionScope.loginId}"){
+							commentList += "<button id='update' value='" + item['commentnum'] + "'>수정</button>"+
+											"<button id='delete' value='" + item['commentnum'] + "'>삭제</button>"
+						}
+						commentList += "</td>"
+						commentList += "</tr>"
+						
+					})
 					commentList += "<tr>"
-					commentList += "<td>" + item['writer'] + "</td>"
-					if(updatecheck == item['commentnum']){
-						commentList += "<td><textarea rows='1' cols='50' id='" + item['commentnum'] + "'>" + item['contents'] + "</textarea>"
-						commentList += "<button id='updatesubmit' value='" + item['commentnum'] + "'>완료</button></td>"
-					}else{
-						commentList += "<td>" + item['contents'] + "</td>"
-					}
-					commentList += "<td>"
-					if(item['id']==${sessionScope.loginId}){
-						commentList += "<button id='update' value='" + item['commentnum'] + "'>수정</button>"+
-										"<button id='delete' value='" + item['commentnum'] + "'>삭제</button>"
-					}
-					commentList += "</td>"
-					commentList += "</tr>"
-				})
-					commentList += "<tr>"
-						commentList += "<td>" + ${nickname} + "</td>"
+						commentList += "<td>${nickname}</td>"
 						commentList += "<td><textarea rows='5' cols='50' id='comment'></textarea></td>"
 						commentList += "<td><button id='btnComment'>등록</button><br></td>"
 					commentList += "</tr>"

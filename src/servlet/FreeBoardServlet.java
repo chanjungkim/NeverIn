@@ -50,9 +50,9 @@ public class FreeBoardServlet extends HttpServlet{
 			request.setAttribute("nickname", nickname);
 
 			FreeBoardArticle freeboardarticle = service.read(loginId, articleNum);
-			
 			if(freeboardarticle != null) {
 				request.setAttribute("freeboardarticle", freeboardarticle);
+				System.out.println(nickname);
 				path = "board/freeboard_read_form.jsp";
 			}else {
 				path = "board/article_not_found.jsp";

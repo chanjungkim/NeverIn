@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import service.FreeBoardCommentService;
 import vo.FreeBoardComment;
 
-@WebServlet("/board/freeboardcomment")
+@WebServlet("/freeboardcomment")
 public class FreeBoardCommentServlet extends HttpServlet{
 	private FreeBoardCommentService service = FreeBoardCommentService.getInstance();
 	
@@ -52,6 +52,7 @@ public class FreeBoardCommentServlet extends HttpServlet{
 			response.setContentType("text/json;charset=euc-kr");
 			PrintWriter writer = response.getWriter();
 			Gson gson = new Gson();
+			System.out.println(gson.toJson(commentList));
 			writer.print(gson.toJson(commentList));
 		}else if(type.equals("deletecomment")) {
 			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
