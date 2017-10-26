@@ -37,6 +37,8 @@ public class ReplyServlet extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String type=request.getParameter("type");
 		String path="";
 		
@@ -44,6 +46,7 @@ public class ReplyServlet extends HttpServlet{
 			Reply reply=new Reply();
 			reply.setWriter(request.getParameter("writer"));
 			reply.setContents(request.getParameter("contents"));
+			System.out.println(reply.getContents());
 			reply.setArticleNum(Integer.parseInt(request.getParameter("articleNum")));
 			if(service.writeReply(reply)) {
 				path="qa/reply_success.jsp";

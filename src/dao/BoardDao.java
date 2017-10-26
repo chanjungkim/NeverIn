@@ -197,7 +197,7 @@ public class BoardDao {
 		makeConnection();
 		String sql = 
 			"SELECT ARTICLE_NUM,TITLE,WRITER,"
-			+ "CONTENTS, write_time,READ_COUNT FROM BOARD "
+			+ "CONTENTS, write_time, REPLY_COUNT, READ_COUNT FROM BOARD "
 			+ "WHERE ARTICLE_NUM=?";
 		Article article = null;
 		
@@ -213,7 +213,8 @@ public class BoardDao {
 				article.setWriter(rs.getString(3));
 				article.setContents(rs.getString(4));
 				article.setWriteDate(rs.getTimestamp(5));
-				article.setReadCount(rs.getInt(6));
+				article.setReplyCount(rs.getInt(6));
+				article.setReadCount(rs.getInt(7));
 			}
 		} catch (SQLException e) {
 			System.out.println("dao select 에러");

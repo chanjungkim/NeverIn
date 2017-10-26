@@ -56,15 +56,19 @@
 			</tr>
 		<%}%>
 	<%} %>	
+			<tr style="background-color: #fff;">
+				<td colspan="5">
+					<div></div>
+				</td>
+				<td>
+					<a href="<%=request.getContextPath()%>/board?type=writeForm">
+						<button>글쓰기</button>
+					</a>
+				</td>
+			</tr>
 	</tbody>	
 	</table>
 <!-- 하단 페이지 링크 걸기 -->
-	<div>
-		<a href=
-		"<%=request.getContextPath()%>/board?type=writeForm">
-			<button>글쓰기</button>
-		</a>
-	</div>
 	<div class="text-center">
 		<ul class="pagination">
 		<%

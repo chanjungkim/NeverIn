@@ -37,6 +37,7 @@ background-color: cce;
 background-color: cce;
 
 }
+</style>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -48,44 +49,32 @@ background-color: cce;
 <c:set var="writer" value="<%=article.getWriter()%>"></c:set>
 <div class="container">
 	<table class="table table-bordered">
-		<tr colspin="2">
-			<span class="badge"><h2>Q</h2></span>
+		<tr>
+			<td colspan="2">
+				<span class="badge">Q</span>
+				<b><%=article.getTitle()%></b>			
+			</td>
+			<td>답변수:<%=article.getReplyCount()%></td>
 		</tr>
 		<tr>
-			<td id="num">글번호:</td>
-			<td><%=article.getAritlcleNum()%></td>
-		</tr>
-		<tr>
-			<td id="title">제목:</td>
-			<td><%=article.getTitle()%></td>
-		</tr>
-		<tr>
-			<td id="writer">작성자:</td>
 			<td><%=article.getWriter()%></td>
-		</tr>
-		<tr>
-			<td id="date">작성일:</td>
 			<td><%=article.getWriteDate()%></td>
+			<td>조회수:<%=article.getReadCount()%></td>
 		</tr>
 		<tr>
-			<td id="count"">조회수:</td>
-			<td><%=article.getReadCount()%></td>
-		</tr>
-		<tr>
-			<td id="content">내용:</td>
-			<td width="80%" ></style>><%=article.getContents()%></td>
+			<td colspan="3"><%=article.getContents()%></td>
 		</tr>
 	</table>
 	<c:forEach var="reply" items="${replyList}">
 		<table class="table table-bordered">
 			<tr>
-				<td colspan="2">
-				<span class="badge"><h2>A</h2></span>
-				${reply.writer}님의 답변입니다.</td>
-			</tr>
-			<tr>
-				<td colspan="2"><h4>${reply.writeTime}</h4></td>
-				
+				<td width="70%">
+					<span class="badge">A</span>
+					<b>${reply.writer}</b>님의 답변입니다.
+				</td>
+				<td>
+					${reply.writeTime}
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">${reply.contents}</td>
