@@ -25,10 +25,11 @@ background-color: cce;
 <body>
 <jsp:include page="../menu.jsp"/>
 <div class="container">
-	<form action="<%=request.getContextPath()%>/reply" 
-												method="post">
-		<input type="hidden" name="type" value="replyWrite">
-		<input type="hidden" name="articleNum" value="<%=request.getAttribute("articleNum") %>">										
+	<form action="<%=request.getContextPath()%>/reply" method="post">
+		<input type="hidden" name="type" value="updateReply">
+		<input type="hidden" name="articleNum" value="${reply.articleNum}">										
+		<input type="hidden" name="replyNum" value="${reply.replyNum}">										
+
 	<table class="table table-bordered" >
 		<tr>
 			<td id="writer1">작성자:</td>
@@ -40,12 +41,12 @@ background-color: cce;
 		<tr>
 			<td id="content">내용:</td>
 			<td width="80%">
-				<textarea rows="20" cols="80" name="contents" placeholder="여기에 내용을 입력하세요."></textarea>
+				<textarea rows="20" cols="80" name="contents">${reply.contents}</textarea>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="submit" value="작성완료">
+				<input type="submit" value="수정완료">
 			</td>
 		</tr>
 	</table>

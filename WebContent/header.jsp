@@ -29,7 +29,7 @@ width:200px
 .member-info-container{
 	right: 0px;
 }
-table{
+#member-info-table{
 	margin: 5px;
 	margin-right: 100px;
 	border-style: groove;
@@ -43,7 +43,7 @@ table{
 		<img id="logo" src="img/logo.png">
 	</span>
 	<div class="member-info-container" style="float: right">
-		<table>
+		<table id="member-info-table">
 			<tr>
 				<td colspan="2">
 					<h4>로그인 정보</h4>

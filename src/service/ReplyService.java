@@ -35,4 +35,16 @@ public class ReplyService {
 			return false;
 		}		
 	}
+    
+    public Reply getReply(String articleNum, String replyNum){
+    	return dao.selectReply(articleNum, replyNum);
+    }
+    
+    public int deleteReply(String articleNum, String replyNum){
+    	return dao.deleteReply(articleNum, replyNum);
+    }
+    
+    public int updateReply(String articleNum, String replyNum, String contents) {
+    	return dao.updateReply(articleNum, replyNum, contents);
+    }
 }

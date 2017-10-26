@@ -9,6 +9,6 @@
 
 <%
 		response.sendRedirect(request.getContextPath()+"/board?type=boardList");
-	%>
+%>
 </body>
 </html>

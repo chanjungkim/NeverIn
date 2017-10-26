@@ -24,8 +24,26 @@ public class ReplyServlet extends HttpServlet{
 			String articleNum=request.getParameter("articleNum");
 			request.setAttribute("articleNum", articleNum);
 			path="qa/reply_form.jsp";
-		}else if(type==null) {
-			
+		} else if (type.equals("edit")) {
+			String articleNum = request.getParameter("articleNum");
+			String replyNum = request.getParameter("replyNum");
+			Reply reply = service.getReply(articleNum, replyNum);
+			System.out.println(articleNum+" "+replyNum);
+			request.setAttribute("reply", reply);
+
+			path="qa/reply_update_form.jsp";
+		} else if (type.equals("delete")) {
+			String articleNum = request.getParameter("articleNum");
+			String replyNum = request.getParameter("replyNum");	
+			int reply = service.deleteReply(articleNum, replyNum);
+						
+			if(reply == 1) {
+				request.setAttribute("articleNum", articleNum);
+				path = "qa/reply_delete_success.jsp";
+			} else {
+				request.setAttribute("articleNum", articleNum);
+				path = "qa/reply_delete_fail.jsp";
+			}
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(path);
 		dispatcher.forward(request, response);
@@ -52,6 +70,18 @@ public class ReplyServlet extends HttpServlet{
 				path="qa/reply_success.jsp";
 			}else {
 				path="qa/reply_fail.jsp";
+			}
+		} else if (type.equals("updateReply")) {
+			String articleNum = request.getParameter("articleNum");
+			String replyNum = request.getParameter("replyNum");
+			String contents = request.getParameter("contents");
+			
+			System.out.println(articleNum + " "+ replyNum +" " + contents);
+			int result = service.updateReply(articleNum, replyNum, contents);
+			if(result == 1) {
+				path="";
+			}else {
+				path="";
 			}
 		}
 		

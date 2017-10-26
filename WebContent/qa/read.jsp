@@ -77,7 +77,14 @@ background-color: cce;
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">${reply.contents}</td>
+				<td>${reply.contents}</td>
+				<td>
+				<c:if test="${sessionScope.loginId == reply.writer}">
+					<a href="${myContextPath}/reply?type=edit&articleNum=${reply.articleNum}&replyNum=${reply.replyNum}"><button>수정</button> </a>
+					<a href="${myContextPath}/reply?type=delete&articleNum=${reply.articleNum}&replyNum=${reply.replyNum}"><button>삭제</button></a>			
+				</c:if>
+				
+				</td>
 			</tr>
 		</table>
 	</c:forEach>
