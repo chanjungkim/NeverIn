@@ -16,7 +16,7 @@ public class BoardDao {
 	private static final String DB_DRIVER = 
 							"com.mysql.jdbc.Driver";
 	private static final String DB_URL = 
-							"jdbc:mysql://127.0.0.1:3306/neverin";
+							"jdbc:mysql://70.12.115.58:3306/neverin";
 	private static final String DB_ID = 
 							"root";
 	private static final String DB_PW = 
