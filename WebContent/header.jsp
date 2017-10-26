@@ -22,35 +22,42 @@ height:100px;
 width:200px
 }
 #logo{
-	left:0px;
+	left: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 .member-info-container{
 	right: 0px;
+}
+table{
+	margin: 5px;
+	margin-right: 100px;
+	border-style: groove;
 }
 
 </style>
 </head>
 <body>
-<div class="container">
+<div class="container" style="width:100%; background-color: ebd200 ">
 	<span class="logo-container">
 		<img id="logo" src="img/logo.png">
 	</span>
-	<div class="member-info-container">
-		<table border="1">
+	<div class="member-info-container" style="float: right">
+		<table>
 			<tr>
-				<th colspan="2">
-					로그인정보
-				</th>
+				<td colspan="2">
+					<h4>로그인 정보</h4>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					${sessionScope.memberInfo.nickname}
-					<b>${sessionScope.memberInfo.id}</b>
+					<b>${sessionScope.memberInfo.nickname}</b>
+					(${sessionScope.memberInfo.id})
 				</td>
 			</tr>
 			<tr>
 				<td>
-					레벨
+					<b>레벨</b>
 				</td>
 				<td>
 					${sessionScope.memberInfo.lv}
@@ -58,7 +65,7 @@ width:200px
 			</tr>
 			<tr>
 				<td>
-					포인트
+					<b>포인트</b>
 				</td>
 				<td>
 					${sessionScope.memberInfo.point}
