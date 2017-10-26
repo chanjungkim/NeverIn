@@ -1,21 +1,32 @@
 <%@page import="vo.FreeBoardArticle"%>
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html>
 <head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
+	
 	$(function(){
-		$('#btnComment').click(function(){
+		$(document).ready(function(){
+			commentList();
+		})
+		
+		$(document).on('click','#btnComment',function(){
+			var comment = $('#comment').val();
 			$.ajax({
 				type:'post',
-				url:'freeboard', 
-				data:'type=writecomment',
+				url:'freeboardcomment', 
+				data:'type=writecomment&nickname=' + ${nickname} + '&freeboardarticleNum='+${freeboardarticle.articleNum}+'&comment='+comment+'&id='+${sessionScope.loginId},
 				dataType:'text',
 				success:function(resultData){
-					alert(resultData);
+					commentList();
 				},
 				error:function(){
 					alert('ajax 요청 실패');
@@ -23,13 +34,101 @@
 				
 			})
 		})
+		
+		$(document).on('click','#delete',function(){
+			var commentnum = $(this).val();
+			$.ajax({
+				type:'post',
+				url:'freeboardcomment', 
+				data:'type=deletecomment&commentnum=' + commentnum,
+				dataType:'text',
+				success:function(resultData){
+					commentList();
+				},
+				error:function(){
+					alert('ajax 요청 실패');
+				}
+				
+			})
+		})
+		
+		$(document).on('click','#update',function(){
+			var commentnum = $(this).val();
+			commentList(commentnum);
+		})
+		
+		$(document).on('click','#updatesubmit',function(){
+			var updatecontents = $(this).siblings('textarea').val();
+			var commentnum = $(this).val();
+			
+			$.ajax({
+				type:'post',
+				url:'freeboardcomment', 
+				data:'type=updatecomment&commentnum=' + commentnum+"&contents="+updatecontents,
+				dataType:'text',
+				success:function(resultData){
+					commentList();
+				},
+				error:function(){
+					alert('ajax 요청 실패');
+				}
+				
+			})
+		})
+		
 	})
+	
+	function commentList(check){
+		var updatecheck = check;
+// 		alert(updatecheck);
+		$.ajax({
+			type:'post',
+			url:'freeboardcomment', 
+			data:'type=commentList&freeboardarticleNum='+${freeboardarticle.articleNum},
+			dataType:'json',
+			success:function(resultData){
+				var commentList = "<div class='container'>"+
+								"<table class='table table-bordered'>"
+				$.each(resultData, function(index, item){
+					commentList += "<tr>"
+					commentList += "<td>" + item['writer'] + "</td>"
+					if(updatecheck == item['commentnum']){
+						commentList += "<td><textarea rows='1' cols='50' id='" + item['commentnum'] + "'>" + item['contents'] + "</textarea>"
+						commentList += "<button id='updatesubmit' value='" + item['commentnum'] + "'>완료</button></td>"
+					}else{
+						commentList += "<td>" + item['contents'] + "</td>"
+					}
+					commentList += "<td>"
+					if(item['id']==${sessionScope.loginId}){
+						commentList += "<button id='update' value='" + item['commentnum'] + "'>수정</button>"+
+										"<button id='delete' value='" + item['commentnum'] + "'>삭제</button>"
+					}
+					commentList += "</td>"
+					commentList += "</tr>"
+				})
+					commentList += "<tr>"
+						commentList += "<td>" + ${nickname} + "</td>"
+						commentList += "<td><textarea rows='5' cols='50' id='comment'></textarea></td>"
+						commentList += "<td><button id='btnComment'>등록</button><br></td>"
+					commentList += "</tr>"
+				commentList += "</table>"+
+								"</div>"
+				$('#commentList').html(commentList);
+				
+			},
+			error:function(){
+				alert('ajax 요청 실패');
+			}
+			
+		})
+	}
 </script>
 <title>글 읽기 화면</title>
 </head>
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
-	<table border="1">
+<div class="container">
+	<table class="table table-bordered">
 		<tr>
 			<td>글번호:</td>
 			<td>${freeboardarticle.articleNum }</td>
@@ -55,6 +154,7 @@
 			<td>${freeboardarticle.contents}</td>
 		</tr>
 	</table>
+	</div>
 	<a href=
 		"${myContextPath}/freeboard?type=answerForm&freeboardarticleNum=${freeboardarticle.articleNum}">
 		[답변달기]
@@ -75,34 +175,7 @@
 		[게시판 목록으로]
 	</a>
 	
-	
-	
-	<table border="1">
-		<tr>
-			<td>
-				(임시)닉네임 : ${nickname}
-			</td>
-			<td>
-				댓글내용 들어갈곳
-			</td>
-			<td>
-				<button>답변</button><br>
-				<button>수정</button><br>
-				<button>삭제</button>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				(임시)닉네임 : ${nickname}
-			</td>
-			<td>
-				<textarea rows="5" cols="50" id="comment"></textarea>
-			</td>
-			<td>
-				<button id="btnComment">등록</button>
-			</td>
-		</tr>
-	</table>
+	<div id="commentList"></div>
 </body>
 </html>
 

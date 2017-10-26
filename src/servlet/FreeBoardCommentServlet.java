@@ -1,75 +1,78 @@
-//package servlet;
-//
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import java.util.List;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//
-//import servlet.FreeBoardServlet;
-//import vo.FreeBoardComment;
-//
-//@WebServlet("/freeboardcomment")
-//public class FreeBoardCommentServlet extends HttpServlet{
-//	private FreeBoardCommentService service = FreeBoardCommentService.getInstance();
-//	
-//	@Override
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("euc-kr");
-//		String type = request.getParameter("type");
-//		String path = "";
-//		
-//		if(type.equals("writecomment")) {
-//			int freeboardarticleNum = Integer.parseInt(request.getParameter("freeboardarticleNum"));
-//			String nickname = request.getParameter("nickname");
-//			String contents = request.getParameter("comment");
-//			String id = request.getParameter("id");
-//			FreeBoardComment comment = new FreeBoardComment();
-//			comment.setArticlenum(freeboardarticleNum);
-//			comment.setWriter(nickname);
-//			comment.setContents(contents);
-//			comment.setId(id);
-//
-//			boolean result = service.commentwrite(comment);
-//			
-//			PrintWriter writer = response.getWriter();
-//			if(result) {
-//				writer.print("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}else {
-//				writer.print("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}
-//			return;
-//		}else if(type.equals("commentList")){
-//			int freeboardarticleNum = Integer.parseInt(request.getParameter("freeboardarticleNum"));
-//			List<FreeBoardComment> commentList = service.commentList(freeboardarticleNum);
-//			
-//			response.setContentType("text/json;charset=euc-kr");
-//			PrintWriter writer = response.getWriter();
-//			Gson gson = new Gson();
-//			writer.print(gson.toJson(commentList));
-//		}else if(type.equals("deletecomment")) {
-//			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
-//			PrintWriter writer = response.getWriter();
-//			
-//			if(service.deletecomment(commentnum)) {
-//				writer.print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}else {
-//				writer.print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}
-//		}else if(type.equals("updatecomment")) {
-//			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
-//			String contents = request.getParameter("contents");
-//			PrintWriter writer = response.getWriter();
-//			
-//			if(service.updatecomment(commentnum, contents)) {
-//				writer.print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}else {
-//				writer.print("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
-//			}
-//		}
-//	}
-//}
+package servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import service.FreeBoardCommentService;
+import service.FreeBoardService;
+import vo.FreeBoardComment;
+
+@WebServlet("/freeboardcomment")
+public class FreeBoardCommentServlet extends HttpServlet{
+	private FreeBoardCommentService service = FreeBoardCommentService.getInstance();
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("euc-kr");
+		String type = request.getParameter("type");
+		String path = "";
+		
+		if(type.equals("writecomment")) {
+			int freeboardarticleNum = Integer.parseInt(request.getParameter("freeboardarticleNum"));
+			String nickname = request.getParameter("nickname");
+			String contents = request.getParameter("comment");
+			String id = request.getParameter("id");
+			FreeBoardComment comment = new FreeBoardComment();
+			comment.setArticlenum(freeboardarticleNum);
+			comment.setWriter(nickname);
+			comment.setContents(contents);
+			comment.setId(id);
+
+			boolean result = service.commentwrite(comment);
+			
+			PrintWriter writer = response.getWriter();
+			if(result) {
+				writer.print("µî·Ï ¼º°ø");
+			}else {
+				writer.print("µî·Ï ½ÇÆÐ");
+			}
+			return;
+		}else if(type.equals("commentList")){
+			int freeboardarticleNum = Integer.parseInt(request.getParameter("freeboardarticleNum"));
+			List<FreeBoardComment> commentList = service.commentList(freeboardarticleNum);
+			
+			response.setContentType("text/json;charset=euc-kr");
+			PrintWriter writer = response.getWriter();
+			Gson gson = new Gson();
+			writer.print(gson.toJson(commentList));
+		}else if(type.equals("deletecomment")) {
+			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
+			PrintWriter writer = response.getWriter();
+			
+			if(service.deletecomment(commentnum)) {
+				writer.print("»èÁ¦ ¼º°ø");
+			}else {
+				writer.print("»èÁ¦ ½ÇÆÐ");
+			}
+		}else if(type.equals("updatecomment")) {
+			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
+			String contents = request.getParameter("contents");
+			PrintWriter writer = response.getWriter();
+			
+			if(service.updatecomment(commentnum, contents)) {
+				writer.print("¼öÁ¤ ¼º°ø");
+			}else {
+				writer.print("¼öÁ¤ ½ÇÆÐ");
+			}
+		}
+	}
+}

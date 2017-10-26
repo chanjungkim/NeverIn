@@ -3,15 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title>답글 작성 화면</title>
 </head>
 <body>
-<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>    
-	<form action="${myContextPath}/freeboard" method="post">
+<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
+<div class="container">    
+	<form action="${myContextPath}/freeboard" method="post" >
 		<input type="hidden" name="type" value="answer">	
-		아이디<input type="text" name="id" value="${sessionScope.loginId}"><br>
-		상위글번호<input type="text" name="articleNum" value="${freeboardarticle.articleNum}"><br>
-		<table border="1">
+		<input type="hidden" name="id" value="${sessionScope.loginId}"><br>
+		<input type="hidden" name="articleNum" value="${freeboardarticle.articleNum}"><br>
+		
+		<table class="table table-bordered">
 			<tr>
 				<td>제목:</td>
 				<td>
@@ -30,6 +38,8 @@
 				</td>
 			</tr>
 		</table>
+		
 	</form>
+	</div>
 </body>
 </html>

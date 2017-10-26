@@ -6,11 +6,6 @@
 <title>삭제 성공</title>
 </head>
 <body>
-<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>    
-	<h2>삭제 작업 성공하였습니다.</h2>
-	<a href=
-		"${myContextPath}/freeboard?type=freeboardList">
-		[게시판 목록으로]
-	</a>
+<%response.sendRedirect(request.getContextPath()+"/freeboard"); %>
 </body>
 </html>

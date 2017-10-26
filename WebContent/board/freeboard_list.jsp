@@ -1,6 +1,5 @@
 <%@page import="vo.FreeBoardArticle"%>
 <%@page import="vo.FreeBoardArticlePage"%>
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -8,12 +7,19 @@
 <html>
 <head>
 <title>게시판 목록</title>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
 	<h2>이곳은 자유게시판 화면 입니다.</h2>
-	<table border="1">
+	<div class="container">
+	<table class="table table-bordered">
 		<tr>
 			<th>글번호</th>
 			<th>제목</th>
@@ -69,6 +75,7 @@
 				<button>글쓰기</button>
 			</a>
 		</c:if>
+	</div>
 	</div>
 </body>
 </html>
