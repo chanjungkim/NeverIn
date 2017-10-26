@@ -35,7 +35,7 @@ button{
 	position:absolute;
 	width:100px;
 	height:100px;
-}
+} 
 .login-panel {
 	display: inline-block;
 	width: 300px;
