@@ -1,10 +1,12 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import vo.FreeBoardArticle;
 import vo.FreeBoardComment;
 
 public class FreeBoardCommentDao {
@@ -31,13 +33,13 @@ public class FreeBoardCommentDao {
 			
 			pstmt.setInt(1, articlenum);
 			
-			rs = pstmt.executeQuery(); // sql ½ÇÇà
+			rs = pstmt.executeQuery(); // sql ì‹¤í–‰
 
-			// °á°ú ¼ıÀÚ ÇÏ³ª ¾ò±â
+			// ê²°ê³¼ ìˆ«ì í•˜ë‚˜ ì–»ê¸°
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao selectGroupCount ¿¡·¯");
+			System.out.println("dao selectGroupCount ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -61,9 +63,9 @@ public class FreeBoardCommentDao {
 			pstmt.setString(4, freeboardcomment.getContents());
 			pstmt.setString(5, freeboardcomment.getId());
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ì‹¤í–‰
 		} catch (SQLException e) {
-			System.out.println("dao insertComment ¿¡·¯");
+			System.out.println("dao insertComment ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -81,7 +83,7 @@ public class FreeBoardCommentDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articlenum);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			while (rs.next()) {
 				FreeBoardComment freeboardcommnet = new FreeBoardComment();
@@ -93,7 +95,7 @@ public class FreeBoardCommentDao {
 				commentList.add(freeboardcommnet);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao commentList ¿¡·¯");
+			System.out.println("dao commentList ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -113,7 +115,7 @@ public class FreeBoardCommentDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao commentdelete ¿¡·¯");
+			System.out.println("dao commentdelete ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -135,7 +137,7 @@ public class FreeBoardCommentDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao commentupdate ¿¡·¯");
+			System.out.println("dao commentupdate ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);

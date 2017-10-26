@@ -21,31 +21,31 @@ public class FreeBoardService {
 
 	
 	public FreeBoardArticlePage makePage(int page) {
-		// ÃÑ °Ô½Ã±ÛÀÇ °¹¼ö DB ¿¡¼­ Á¶È¸
+		// ì´ ê²Œì‹œê¸€ì˜ ê°¯ìˆ˜ DB ì—ì„œ ì¡°íšŒ
 		int totalArticleCount = dao.selectFreeBoardArticleCount();
 
-		// ÃÑ ÆäÀÌÁö ¼ö °è»ê
+		// ì´ í˜ì´ì§€ ìˆ˜ ê³„ì‚°
 		int totalPage = totalArticleCount / COUNT_PER_PAGE;
 		if (totalArticleCount % COUNT_PER_PAGE > 0) {
 			totalPage++;
 		}
 
-		// ÇÏ´Ü ½ÃÀÛ ÆäÀÌÁö
+		// í•˜ë‹¨ ì‹œì‘ í˜ì´ì§€
 		int startPage = (page - 1) / 10 * 10 + 1;
 
-		// ÇÏ´Ü ³¡ ÆäÀÌÁö
+		// í•˜ë‹¨ ë í˜ì´ì§€
 		int endPage = startPage + 9;
 		if (endPage > totalPage) {
 			endPage = totalPage;
 		}
 
-		// limit ½ÃÀÛÇà °è»ê
+		// limit ì‹œì‘í–‰ ê³„ì‚°
 		int startRow = (page - 1) * COUNT_PER_PAGE;
 
-		// DB ¿¡¼­ ÇöÀç ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Ûµé Á¶È¸
+		// DB ì—ì„œ í˜„ì¬ í˜ì´ì§€ì— ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ë“¤ ì¡°íšŒ
 		List<FreeBoardArticle> freeboardarticleList = dao.selectFreeBoardArticleList(startRow, COUNT_PER_PAGE);
 
-		// ÇÑ ÆäÀÌÁö¿¡ º¸¿©Áú ¸ğµç µ¥ÀÌÅÍ ´ã¾Æ¼­ ÀÛ¾÷ ¿Ï·á
+		// í•œ í˜ì´ì§€ì— ë³´ì—¬ì§ˆ ëª¨ë“  ë°ì´í„° ë‹´ì•„ì„œ ì‘ì—… ì™„ë£Œ
 		return new FreeBoardArticlePage
 			(freeboardarticleList, startPage, endPage, page, totalPage);
 	}
@@ -115,9 +115,6 @@ public class FreeBoardService {
 		freeboardarticle.setGroupNum(freeBoardArticlesub.getGroupNum());
 		freeboardarticle.setSubNum(freeBoardArticlesub.getSubNum()+1);
 		freeboardarticle.setSubCount(freeBoardArticlesub.getSubCount()+1);
-		System.out.println("±×·ì¹øÈ£ : " + freeboardarticle.getGroupNum());
-		System.out.println("µé¿©¹øÈ£ : " + freeboardarticle.getSubNum());
-		System.out.println("Ä«¿îÆ®¹øÈ£ : " + freeboardarticle.getSubCount());
 		
 		if(dao.checkAnswer(freeboardarticle)>0) {
 			dao.subCountUpdate(freeboardarticle);
@@ -133,101 +130,9 @@ public class FreeBoardService {
 				return false;
 			}
 		}
-		
-		// dao.subsubCountUpdate(freeboardarticle);
-		
-//		boolean result = false;
-//		if(dao.checkAnswer(freeboardarticle)>0) {
-//			for(int i = 1; i < 10; i++) {
-//				freeboardarticle.setSubCount(freeBoardArticlesub.getSubCount()+i);
-//				if(dao.checkAnswer(freeboardarticle)==0) {
-//					// °°Àº ±Û ÀÖÀ½.
-//					dao.subsubCountUpdate(freeboardarticle);
-//					System.out.println(i+"±×·ì¹øÈ£ : " + freeboardarticle.getGroupNum());
-//					System.out.println(i+"µé¿©¹øÈ£ : " + freeboardarticle.getSubNum());
-//					System.out.println(i+"Ä«¿îÆ®¹øÈ£ : " + freeboardarticle.getSubCount());
-//					if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//						result = true;
-//						break;
-//					}else {
-//						result = false;
-//						break;
-//					}
-//				}
-//			}
-//		}else {
-//			// °°Àº ±Û ¾øÀ½.
-//			dao.subCountUpdate(freeboardarticle);
-//			if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}
-//		return result;
-	}
-	
-//	public boolean answerWrite(FreeBoardArticle freeboardarticle, int articleNum) {
-//	FreeBoardArticle freeBoardArticlesub = dao.freeboardarticleselect(articleNum);
-//	
-//	String nickname = dao.selectNickName(freeboardarticle.getId());
-//	freeboardarticle.setWriter(nickname);
-//	freeboardarticle.setWriteTime(new Date());
-//	freeboardarticle.setReadCount(0);
-//	freeboardarticle.setGroupNum(freeBoardArticlesub.getGroupNum());
-//	freeboardarticle.setSubNum(freeBoardArticlesub.getSubNum()+1);
-//	freeboardarticle.setSubCount(freeBoardArticlesub.getSubCount()+1);
-//	if(dao.checkAnswer(freeboardarticle)>0) {
-//		// °°Àº ±Û ÀÖÀ½.
-//		dao.subCountUpdate(freeboardarticle);
-//		if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}else {
-//		// °°Àº ±Û ¾øÀ½.
-//		if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
-//}
-	
 
-	
-//	public boolean answerWrite(FreeBoardArticle freeboardarticle) {
-//		String nickname = dao.selectNickName(freeboardarticle.getId());
-//		freeboardarticle.setWriter(nickname);
-//		freeboardarticle.setWriteTime(new Date());
-//		freeboardarticle.setReadCount(0);
-//
-//		int maxcount = dao.checkAnswer(freeboardarticle);
-//		
-//		if(maxcount>0) {
-//			freeboardarticle.setSubCount(maxcount);
-//			// °°Àº ±×·ì¿¡ °°Àº Ä«¿îÆ®°¡ ÀÖÀ½
-//			dao.subsubCountUpdate(freeboardarticle);
-//			freeboardarticle.setSubCount(maxcount+1);
-//			if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}else {
-//			// °°Àº ±×·ì¿¡ °°Àº Ä«¿îÆ®°¡ ¾øÀ½
-//			int ssubcount = freeboardarticle.getSubCount();
-//			freeboardarticle.setSubCount(ssubcount-1);
-//			dao.subCountUpdate(freeboardarticle);
-//			freeboardarticle.setSubCount(ssubcount);
-//			if(dao.insertAnswerArticle(freeboardarticle)>0) {
-//				return true;
-//			}else {
-//				return false;
-//			}
-//		}
-//	}
+	}
+
 }
 
 

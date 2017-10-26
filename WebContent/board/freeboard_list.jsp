@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<jsp:include page="../menu.jsp"/>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
 	<h2>이곳은 자유게시판 화면 입니다.</h2>
 	<div class="container">

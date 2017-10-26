@@ -1,11 +1,8 @@
 package service;
 
-import java.util.Date;
 import java.util.List;
 
 import dao.FreeBoardCommentDao;
-import dao.FreeBoardDao;
-import vo.FreeBoardArticle;
 import vo.FreeBoardComment;
 
 public class FreeBoardCommentService {

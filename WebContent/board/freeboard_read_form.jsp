@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html>
 <head>
+<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -12,7 +13,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-	
 	$(function(){
 		$(document).ready(function(){
 			commentList();
@@ -22,7 +22,8 @@
 			var comment = $('#comment').val();
 			$.ajax({
 				type:'post',
-				url:'freeboardcomment', 
+				url:'board/freeboardcomment', 
+// 				url: '${myContextPath}/freeboardcomment', 
 				data:'type=writecomment&nickname=' + ${nickname} + '&freeboardarticleNum='+${freeboardarticle.articleNum}+'&comment='+comment+'&id='+${sessionScope.loginId},
 				dataType:'text',
 				success:function(resultData){
@@ -39,7 +40,8 @@
 			var commentnum = $(this).val();
 			$.ajax({
 				type:'post',
-				url:'freeboardcomment', 
+				url:'board/freeboardcomment', 
+// 				url: ${myContextPath}+'/freeboardcomment', 
 				data:'type=deletecomment&commentnum=' + commentnum,
 				dataType:'text',
 				success:function(resultData){
@@ -63,7 +65,7 @@
 			
 			$.ajax({
 				type:'post',
-				url:'freeboardcomment', 
+				url:'board/freeboardcomment',
 				data:'type=updatecomment&commentnum=' + commentnum+"&contents="+updatecontents,
 				dataType:'text',
 				success:function(resultData){
@@ -83,7 +85,7 @@
 // 		alert(updatecheck);
 		$.ajax({
 			type:'post',
-			url:'freeboardcomment', 
+			url: 'board/freeboardcomment',
 			data:'type=commentList&freeboardarticleNum='+${freeboardarticle.articleNum},
 			dataType:'json',
 			success:function(resultData){
@@ -126,7 +128,8 @@
 <title>글 읽기 화면</title>
 </head>
 <body>
-<c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
+<jsp:include page="../menu.jsp"/>
+
 <div class="container">
 	<table class="table table-bordered">
 		<tr>

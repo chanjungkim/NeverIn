@@ -28,18 +28,14 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="menu.jsp">NEVER 지식IN</a>
-			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">Home</a></li>
-				<li><a class="dropdown" href="qa/board_list.jsp">지식Q&A</a>
-					<ul class="dropdown-menu">
-						<li><a href="qa/page2.jsp">교육</a></li>
-						<li><a href="qa/page3.jsp">컴퓨터</a></li>
-						<li><a href="qa/page4.jsp">엔터테인먼트</a></li>
-					</ul></li>
-				<li><a href="board/page5.jsp">자유 게시판</a></li>
+				<li><a class="dropdown" href="${myContextPath}/board">지식Q&A</a>
+<!-- 					<ul class="dropdown-menu"> -->
+<!-- 						<li><a href="qa/page2.jsp">교육</a></li> -->
+<!-- 						<li><a href="qa/page3.jsp">컴퓨터</a></li> -->
+<!-- 						<li><a href="qa/page4.jsp">엔터테인먼트</a></li> -->
+<!-- 					</ul></li> -->
+				<li><a href="${myContextPath}/freeboard">자유 게시판</a></li>
 				<li><a href="board/page6.jsp">설정</a></li>
 			</ul>
 		</div>

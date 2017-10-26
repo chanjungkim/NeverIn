@@ -12,6 +12,7 @@
 <title>글 작성 화면</title>
 </head>
 <body>
+<jsp:include page="../menu.jsp"/>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"/>
 <div class="container">    
 	<form action="${myContextPath}/freeboard" method="post">

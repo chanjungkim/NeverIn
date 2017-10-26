@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import service.FreeBoardCommentService;
-import service.FreeBoardService;
 import vo.FreeBoardComment;
 
-@WebServlet("/freeboardcomment")
+@WebServlet("/board/freeboardcomment")
 public class FreeBoardCommentServlet extends HttpServlet{
 	private FreeBoardCommentService service = FreeBoardCommentService.getInstance();
 	
@@ -41,9 +40,9 @@ public class FreeBoardCommentServlet extends HttpServlet{
 			
 			PrintWriter writer = response.getWriter();
 			if(result) {
-				writer.print("殿废 己傍");
+				writer.print("霌彪 靹标车");
 			}else {
-				writer.print("殿废 角菩");
+				writer.print("霌彪 鞁ろ尐");
 			}
 			return;
 		}else if(type.equals("commentList")){
@@ -59,9 +58,9 @@ public class FreeBoardCommentServlet extends HttpServlet{
 			PrintWriter writer = response.getWriter();
 			
 			if(service.deletecomment(commentnum)) {
-				writer.print("昏力 己傍");
+				writer.print("靷牅 靹标车");
 			}else {
-				writer.print("昏力 角菩");
+				writer.print("靷牅 鞁ろ尐");
 			}
 		}else if(type.equals("updatecomment")) {
 			int commentnum = Integer.parseInt(request.getParameter("commentnum"));
@@ -69,9 +68,9 @@ public class FreeBoardCommentServlet extends HttpServlet{
 			PrintWriter writer = response.getWriter();
 			
 			if(service.updatecomment(commentnum, contents)) {
-				writer.print("荐沥 己傍");
+				writer.print("靾橃爼 靹标车");
 			}else {
-				writer.print("荐沥 角菩");
+				writer.print("靾橃爼 鞁ろ尐");
 			}
 		}
 	}

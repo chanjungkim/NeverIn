@@ -1,6 +1,10 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +30,13 @@ public class FreeBoardDao {
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // sql ½ÇÇà
+			rs = pstmt.executeQuery(); // sql ì‹¤í–‰
 
-			// °á°ú ¼ıÀÚ ÇÏ³ª ¾ò±â
+			// ê²°ê³¼ ìˆ«ì í•˜ë‚˜ ì–»ê¸°
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao selectFreeBoardArticleCount ¿¡·¯");
+			System.out.println("dao selectFreeBoardArticleCount ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -41,7 +45,7 @@ public class FreeBoardDao {
 		}
 		return result;
 	}
-	// 2. Æ¯Á¤ ÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã±Û Á¶È¸
+	// 2. íŠ¹ì • í˜ì´ì§€ì— ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ ì¡°íšŒ
 	public List<FreeBoardArticle> selectFreeBoardArticleList(int startRow, int count) {
 		con = DBUtil.makeConnection();
 		String sql = "select article_num, title, writer, contents, read_count, write_time from freeboard order by group_num desc, sub_count asc limit ?,?";
@@ -51,7 +55,7 @@ public class FreeBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, count);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			while (rs.next()) {
 				FreeBoardArticle freeboardarticle = new FreeBoardArticle();
@@ -65,7 +69,7 @@ public class FreeBoardDao {
 				freeboardarticleList.add(freeboardarticle);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao selectFreeBoardArticleList ¿¡·¯");
+			System.out.println("dao selectFreeBoardArticleList ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -91,7 +95,7 @@ public class FreeBoardDao {
 				result = rs.getString(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao selectNickName ¿¡·¯");
+			System.out.println("dao selectNickName ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -101,20 +105,20 @@ public class FreeBoardDao {
 		return result;
 	}
 	
-	// ±×·ì °¹¼ö Á¶È¸
+	// ê·¸ë£¹ ê°¯ìˆ˜ ì¡°íšŒ
 	public int selectGroupCount() {
 		con = DBUtil.makeConnection();
 		String sql = "select count(distinct group_num) from freeboard";
 		int result = 0;
 		try {
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery(); // sql ½ÇÇà
+			rs = pstmt.executeQuery(); // sql ì‹¤í–‰
 
-			// °á°ú ¼ıÀÚ ÇÏ³ª ¾ò±â
+			// ê²°ê³¼ ìˆ«ì í•˜ë‚˜ ì–»ê¸°
 			rs.next();
 			result = rs.getInt(1);
 		} catch (SQLException e) {
-			System.out.println("dao Groupcount ¿¡·¯");
+			System.out.println("dao Groupcount ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -141,9 +145,9 @@ public class FreeBoardDao {
 			pstmt.setTimestamp(7, 
 				new Timestamp(freeboardarticle.getWriteTime().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ì‹¤í–‰
 		} catch (SQLException e) {
-			System.out.println("dao insert ¿¡·¯");
+			System.out.println("dao insert ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -151,7 +155,7 @@ public class FreeBoardDao {
 		}
 		return result;
 	}
-	// 2. ÇØ´ç ¹øÈ£ÀÇ Article Á¶È¸
+	// 2. í•´ë‹¹ ë²ˆí˜¸ì˜ Article ì¡°íšŒ
 	public FreeBoardArticle freeboardarticleselect(int articleNum) {
 		con = DBUtil.makeConnection();
 		String sql = "SELECT ARTICLE_NUM,TITLE,WRITER," 
@@ -162,7 +166,7 @@ public class FreeBoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			if (rs.next()) {
 				freeboardarticle = new FreeBoardArticle();
@@ -178,7 +182,7 @@ public class FreeBoardDao {
 				freeboardarticle.setSubCount(rs.getInt(10));
 			}
 		} catch (SQLException e) {
-			System.out.println("dao freeboardarticleselect ¿¡·¯");
+			System.out.println("dao freeboardarticleselect ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -188,7 +192,7 @@ public class FreeBoardDao {
 		return freeboardarticle;
 	}
 	
-	// 1. Á¶È¸¼ö Áõ°¡
+	// 1. ì¡°íšŒìˆ˜ ì¦ê°€
 	public int updateReadCount(int articleNum) {
 		con = DBUtil.makeConnection();
 		String sql = "UPDATE FREEBOARD SET READ_COUNT=READ_COUNT+1 " 
@@ -198,9 +202,9 @@ public class FreeBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
 
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ì‹¤í–‰
 		} catch (SQLException e) {
-			System.out.println("dao updateReadCount ¿¡·¯");
+			System.out.println("dao updateReadCount ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -229,9 +233,9 @@ public class FreeBoardDao {
 			pstmt.setTimestamp(9, 
 				new Timestamp(freeboardarticle.getWriteTime().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ì‹¤í–‰
 		} catch (SQLException e) {
-			System.out.println("dao insertAnswerArticle ¿¡·¯");
+			System.out.println("dao insertAnswerArticle ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -249,13 +253,13 @@ public class FreeBoardDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, freeBoardArticle.getGroupNum());
 			pstmt.setInt(2, freeBoardArticle.getSubCount());
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao checkAnswer ¿¡·¯");
+			System.out.println("dao checkAnswer ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -275,7 +279,7 @@ public class FreeBoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, freeBoardArticle.getGroupNum());
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 			
 			while(rs.next()) {
 				subcount = rs.getInt(1);
@@ -287,7 +291,7 @@ public class FreeBoardDao {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("dao checkAnswer ¿¡·¯");
+			System.out.println("dao checkAnswer ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -309,7 +313,7 @@ public class FreeBoardDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao subCountUpdate ¿¡·¯");
+			System.out.println("dao subCountUpdate ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -330,7 +334,7 @@ public class FreeBoardDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao subCountUpdate ¿¡·¯");
+			System.out.println("dao subCountUpdate ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -349,7 +353,7 @@ public class FreeBoardDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao delete ¿¡·¯");
+			System.out.println("dao delete ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -371,7 +375,7 @@ public class FreeBoardDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("dao update ¿¡·¯");
+			System.out.println("dao update ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
@@ -384,7 +388,7 @@ public class FreeBoardDao {
 ////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////
-	// ±Û ÀĞ±â ÀÛ¾÷¿¡ ÇÊ¿äÇÑ ¸Ş¼Òµå
+	// ê¸€ ì½ê¸° ì‘ì—…ì— í•„ìš”í•œ ë©”ì†Œë“œ
 
 
 	
@@ -397,7 +401,7 @@ public class FreeBoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, articleNum);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			if (rs.next()) {
 				article = new FreeBoardArticle();
@@ -406,7 +410,7 @@ public class FreeBoardDao {
 				article.setSubCount(rs.getInt(3));
 			}
 		} catch (SQLException e) {
-			System.out.println("dao subNum ¿¡·¯");
+			System.out.println("dao subNum ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -425,13 +429,13 @@ public class FreeBoardDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, groupNum);
-			rs = pstmt.executeQuery(); // SQL ½ÇÇà
+			rs = pstmt.executeQuery(); // SQL ì‹¤í–‰
 
 			if (rs.next()) {
 				result = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("dao subCount ¿¡·¯");
+			System.out.println("dao subCount ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closeRs(rs);
@@ -458,9 +462,9 @@ public class FreeBoardDao {
 			pstmt.setTimestamp(8, 
 				new Timestamp(article.getWriteTime().getTime()));
 			
-			result = pstmt.executeUpdate(); // SQL ½ÇÇà
+			result = pstmt.executeUpdate(); // SQL ì‹¤í–‰
 		} catch (SQLException e) {
-			System.out.println("dao insertAnswer ¿¡·¯");
+			System.out.println("dao insertAnswer ì—ëŸ¬");
 			e.printStackTrace();
 		} finally {
 			DBUtil.closePstmt(pstmt);
