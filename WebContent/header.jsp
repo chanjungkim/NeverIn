@@ -38,7 +38,7 @@ table{
 </style>
 </head>
 <body>
-<div class="container" style="width:100%; background-color: ebd200 ">
+<div class="container" style="width:100%; background-color:#ebea00 ">
 	<span class="logo-container">
 		<img id="logo" src="img/logo.png">
 	</span>
