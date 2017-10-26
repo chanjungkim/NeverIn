@@ -112,13 +112,6 @@ button{
 						</table>						
 					</div>
 				</form>
-				</c:if>
-				<c:if test="${not empty sessionScope.loginId}">
-					<script type="text/javascript">
-						alert("이미 로그인 된 사용자 입니다.");
-						location.href='${pageContext.request.contextPath}/';
-					</script>
-				</c:if>
 			</div>
 		</div>
 		
@@ -152,7 +145,10 @@ button{
 		      
 		    </div>
 		  </div>
-		
+		</c:if>
+		<c:if test="${not empty sessionScope.loginId}">
+			<% response.sendRedirect(request.getContextPath()+"/board?type=boardList"); %>
+		</c:if>
 	</div>
 </body>
 </html>
