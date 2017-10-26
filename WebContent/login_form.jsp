@@ -14,7 +14,7 @@ form{
 	position:absolute;
 	top: 25%;
 }
-button{
+button{ 
 	margin-top: 10px;
 	width: 100%;
 	background-color: blue;

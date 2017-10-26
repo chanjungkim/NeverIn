@@ -14,7 +14,7 @@
 	<form action="<%=request.getContextPath()%>/board" 
 											method="post">
 
-
+ 
 		<input type="submit" value="삭제확인">
 		<input type="hidden" name="type" value="delete">
 		<input type="hidden" name="articleNum" 
