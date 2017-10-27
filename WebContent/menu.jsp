@@ -19,6 +19,11 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 	display: block;
 	margin: 0;
 }
+<style type="text/css">
+.delete{
+	color: red;
+}
+
 </style>
 </head>
 <body>
@@ -29,15 +34,23 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li><a class="dropdown" href="${myContextPath}/board">지식Q&A</a>
+				<li>
+					<a class="dropdown" href="${myContextPath}/board">지식Q&A
 <!-- 					<ul class="dropdown-menu"> -->
 <!-- 						<li><a href="qa/page2.jsp">교육</a></li> -->
 <!-- 						<li><a href="qa/page3.jsp">컴퓨터</a></li> -->
 <!-- 						<li><a href="qa/page4.jsp">엔터테인먼트</a></li> -->
 <!-- 					</ul></li> -->
-				<li><a href="${myContextPath}/freeboard">자유 게시판</a></li>
-				<li><a href="board/page6.jsp">설정</a></li>
+					</a>
+				<li>
+					<a href="${myContextPath}/freeboard">자유 게시판</a>
+				</li>
+				<li>
+					<!-- Trigger the modal with a button -->
+		  			<a data-toggle="modal" data-target="#myModal">설정</a>
+				</li>
 			</ul>
+					<jsp:include page="join/mem_setting.jsp"/>
 		</div>
 	</nav>
 </body>
