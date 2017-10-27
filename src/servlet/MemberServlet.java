@@ -28,15 +28,7 @@ public class MemberServlet extends HttpServlet{
 			path = "join_form.jsp";
 		} else if(task.equals("loginForm")) {
 			path = "login_form.jsp";
-		} else if(task.equals("delete")) {
-			String id = request.getParameter("id");
-			
-			System.out.println("delete servlet 동작");
-			
-			if(service.deleteMemberInfo(id) == 1)
-				System.out.println("멤서 삭제 성공");
-			path="index.jsp";
-		}
+		} 
 		
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher(path);
@@ -50,6 +42,8 @@ public class MemberServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		String task = request.getParameter("task");
 		String path = "";
+		
+		HttpSession session = null;
 		
 		if(task.equals("join")) {
 			Member member = new Member();
@@ -77,10 +71,11 @@ public class MemberServlet extends HttpServlet{
 			if(loginId!=null) {
 				Member memberInfo = service.getMemberInfo(loginId);
 				
-				HttpSession session = request.getSession();
+				session = request.getSession();
 
 				session.setAttribute("loginId", loginId);
 				session.setAttribute("memberInfo", memberInfo);
+				session.setAttribute("nickname", memberInfo.getNickname());	
 				
 				path = "join/login_success.jsp";
 			}else {
@@ -92,10 +87,24 @@ public class MemberServlet extends HttpServlet{
 			String pw = request.getParameter("pw");
 			System.out.println("전달된 정보 수정 정보: id:"+id+"nickname:"+nickname+" pw:"+pw);
 			
-			service.updateMemberInfo(id, nickname, pw);
-
+			int result = service.updateMemberInfo(id, nickname, pw);
+			
+			if(result == 1) {
+				request.setAttribute("newNickname", nickname);
+				System.out.println("newNick at servlet: "+nickname);
+				path="join/update_success.jsp";
+			}else {
+				path="join/update_fail.jsp";
+			}
+		} else if(task.equals("delete")) {
+			String id = request.getParameter("id");
+			
+			System.out.println("delete servlet 동작");
+			
+			if(service.deleteMemberInfo(id) == 1)
+				System.out.println("멤서 삭제 성공");
 			path="index.jsp";
-		} 
+		}
 		
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher(path);

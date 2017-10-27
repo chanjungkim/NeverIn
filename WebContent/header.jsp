@@ -51,7 +51,16 @@ width:200px
 			</tr>
 			<tr>
 				<td colspan="2">
-					<b>${sessionScope.memberInfo.nickname}</b>
+					<c:if test="${empty newNickname}">
+						<b>${sessionScope.memberInfo.nickname}</b>
+					</c:if>
+<%
+	String str = (String) request.getAttribute("newNickname");
+	System.out.println("newNick at boardList"+str);
+%>
+					<c:if test="${not empty newNickname}">
+						<b>${newNickname}</b>
+					</c:if>
 					(${sessionScope.memberInfo.id})
 				</td>
 			</tr>

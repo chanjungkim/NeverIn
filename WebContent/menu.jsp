@@ -14,6 +14,44 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#pwCheck1').on('keyup', function(){
+		console.log('1눌림');
+		
+		var pw1 = $('#pwCheck1').val();
+		var pw2 = $('#pwCheck2').val();
+		
+		if(pw1!=pw2){
+			console.log('비밀번호 다름')
+			$('#pwWarn').html("<label style='color:red;'>비밀번호가 일치하지 않습니다.</label>");
+			$('#editBtn').attr('disabled','true');
+		}else{
+			console.log('비밀번호 같음')
+			$('#pwWarn').html("<label style='color:green;'>비밀번호가 일치합니다.</label>");		
+			$('#editBtn').removeAttr("disabled");
+		}
+	})
+
+	$('#pwCheck2').on('keyup', function(){
+
+		console.log('2눌림');
+
+		var pw1 = $('#pwCheck1').val();
+		var pw2 = $('#pwCheck2').val();
+
+		if(pw1!=pw2){
+			console.log('비밀번호 다름')
+			$('#pwWarn').html("<label style='display:inline-block;color:red;'>비밀번호가 일치하지 않습니다.</label>");	
+			$('#editBtn').attr('disabled','true');
+		}else{
+			console.log('비밀번호 같음')
+			$('#pwWarn').html("<label style='display:inline-block;color:green;'>비밀번호가 일치합니다.</label>");		
+			$('#editBtn').removeAttr("disabled");
+		}
+	})
+})
+</script>
 <style>
 ul.nav li.dropdown:hover>ul.dropdown-menu {
 	display: block;
@@ -47,7 +85,11 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
   vertical-align: middle;
   padding-left:11%;
 }
-</style>
+
+.tab-pane{
+	align-content: center;
+}
+</style>	
 </head>
 <body>
 <jsp:include page="header.jsp"/>

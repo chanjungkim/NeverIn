@@ -21,6 +21,12 @@
 %>
 <body>
 <jsp:include page="../menu.jsp"/>
+
+<%
+	String str = (String) request.getAttribute("newNickname");
+	System.out.println("newNick at boardList"+str);
+%>
+
 <div class="container">
 	<table class="table table-striped table-hover">
 		<thead>
