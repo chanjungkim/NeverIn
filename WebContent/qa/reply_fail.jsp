@@ -2,15 +2,9 @@
     pageEncoding="EUC-KR"%>
 <html>
 <head>
-<title>글쓰기 실패</title>
+<title>수정 결과</title>
 </head>
 <body>
-<jsp:include page="../menu.jsp"/>
-
-	<h2>답변 작성이 취소되었습니다.</h2>
-	<a href=
-		"<%=request.getContextPath()%>/board?type=boardList">
-		[게시판 목록으로]
-	</a>
+	<%response.sendRedirect(request.getContextPath()+"/board"); %>
 </body>
 </html>

@@ -4,6 +4,12 @@
 <head>
 <title>삭제 확인 페이지</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	$(function(){
+		$(document).ready(function(){
+			
+		})
+})
 <body>	
 <jsp:include page="../menu.jsp"/>
 

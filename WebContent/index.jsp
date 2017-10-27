@@ -76,8 +76,9 @@ button{
 		})
 		
 		$(document).ready(function(){
-			<%session.setAttribute("loginId", null);%>
-		})
+        	<%session.setAttribute("loginId", null);%>
+        	<%session.setAttribute("memberInfo", null);%>
+        })
 	})
 </script>
 </head>

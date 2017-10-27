@@ -92,8 +92,12 @@ public class BoardServlet extends HttpServlet{
 						&& articleNumStr.length() > 0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
-			request.setAttribute("articleNum", articleNum);
-			path = "qa/delete_form.jsp";
+			
+			if(service.delete(articleNum)) {
+				path = "qa/delete_success.jsp";
+			}else {
+				path = "qa/delete_fail.jsp";
+			}
 		}
 		
 		RequestDispatcher dispatcher = 

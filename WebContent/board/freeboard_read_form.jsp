@@ -164,6 +164,7 @@
 		</tr>
 	</table>
 	</div>
+	<div>
 	<a href=
 		"${myContextPath}/freeboard?type=answerForm&freeboardarticleNum=${freeboardarticle.articleNum}">
 		[답변달기]
@@ -183,6 +184,7 @@
 	"${myContextPath}/freeboard?type=freeboardList">
 		[게시판 목록으로]
 	</a>
+	</div>
 	
 	<div id="commentList"></div>
 </body>

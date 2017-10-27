@@ -2,21 +2,9 @@
     pageEncoding="EUC-KR"%>
 <html>
 <head>
-<title>수정하기 완료</title>
+<title>수정 결과</title>
 </head>
 <body>
-<jsp:include page="../menu.jsp"/>
-
-	<%
-		int articleNum = 
-			(Integer) request.getAttribute("articleNum");
-	%>
-<%
-		response.sendRedirect(request.getContextPath()+"/board?type=boardList");
-	%>
+	<%response.sendRedirect(request.getContextPath()+"/board"); %>
 </body>
 </html>
-
-
-
-

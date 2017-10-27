@@ -49,7 +49,7 @@ public class FreeBoardCommentServlet extends HttpServlet{
 			int freeboardarticleNum = Integer.parseInt(request.getParameter("freeboardarticleNum"));
 			List<FreeBoardComment> commentList = service.commentList(freeboardarticleNum);
 			
-			response.setContentType("text/json;charset=euc-kr");
+			response.setContentType("text/json;charset=utf-8");
 			PrintWriter writer = response.getWriter();
 			Gson gson = new Gson();
 			System.out.println(gson.toJson(commentList));

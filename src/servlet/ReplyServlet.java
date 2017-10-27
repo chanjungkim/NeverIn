@@ -79,9 +79,9 @@ public class ReplyServlet extends HttpServlet{
 			System.out.println(articleNum + " "+ replyNum +" " + contents);
 			int result = service.updateReply(articleNum, replyNum, contents);
 			if(result == 1) {
-				path="";
+				path="qa/reply_update_success.jsp";
 			}else {
-				path="";
+				path="qa/reply_update_fail.jsp";
 			}
 		}
 		

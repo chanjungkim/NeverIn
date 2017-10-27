@@ -2,14 +2,9 @@
     pageEncoding="EUC-KR"%>
 <html>
 <head>
-<title>글쓰기 완료</title>
+<title>수정 결과</title>
 </head>
 <body>
-<jsp:include page="../header.jsp"/>
-<jsp:include page="../menu.jsp"/>
-
-	<%
-		response.sendRedirect(request.getContextPath()+"/board?type=boardList");
-	%>
+	<%response.sendRedirect(request.getContextPath()+"/board"); %>
 </body>
 </html>
