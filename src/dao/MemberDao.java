@@ -91,7 +91,7 @@ public class MemberDao {
 		con=DBUtil.makeConnection();
 		String sql = "SELECT * FROM MEMBER WHERE ID=?";
 
-		Member member = null;
+		Member member = new Member();
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -100,7 +100,6 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
-				member = new Member();
 				member.setId(rs.getString(1));
 				member.setPw(rs.getString(2));
 				member.setName(rs.getString(3));
@@ -121,6 +120,93 @@ public class MemberDao {
 			DBUtil.closeCon(con);
 		}
 		return member;
+	}
+	
+	public int updateMemberPw(String id, String pw) {
+		con=DBUtil.makeConnection();
+		String sql = "UPDATE MEMBER SET PW = ? WHERE ID = ?";
+		
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("member dao update pw 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	
+	public int updateMemberNick(String id, String nickname) {
+		con=DBUtil.makeConnection();
+		String sql = "UPDATE MEMBER SET NICKNAME = ? WHERE ID = ?";
+		
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("member dao update nick 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	
+	public int updateMember(String id, String nickname, String pw) {
+		con=DBUtil.makeConnection();
+		String sql = "UPDATE MEMBER SET NICKNAME = ?, PW = ? WHERE ID = ?";
+		
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, id);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("member dao update id pw 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
+	}
+	public int deleteMember(String id) {
+		con=DBUtil.makeConnection();
+		String sql = "DELETE FROM MEMBER WHERE ID = ?";
+		
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+	
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("member dao delete 에러");
+			e.printStackTrace();
+		} finally {
+			DBUtil.closeRs(rs);
+			DBUtil.closePstmt(pstmt);
+			DBUtil.closeCon(con);
+		}
+		return result;
 	}
 }
 

@@ -33,4 +33,22 @@ public class MemberService {
     	Member memberInfo = dao.selectMember(id);
     	return memberInfo;
     }
+    
+    public int updateMemberInfo(String id, String nickname, String pw) {
+    	int result = 0;
+    	if(nickname.equals("") || pw.equals("")) {
+    		if(!nickname.equals("") && !pw.equals("")){
+    			result = dao.updateMember(id, nickname, pw);
+    		}else if(pw.equals("")) {
+        		result = dao.updateMemberNick(id, nickname);
+    		}else if(nickname.equals("")) {
+    			result = dao.updateMemberPw(id, pw);
+    		}
+    	}
+    	return result;
+    }
+    
+    public int deleteMemberInfo(String id) {
+    	return dao.deleteMember(id);
+    }
 }

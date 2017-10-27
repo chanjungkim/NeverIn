@@ -74,16 +74,19 @@ button{
 			e.stopImmediatePropagation();
 			return false;
 		})
+		
+		$(document).ready(function(){
+			<%session.setAttribute("loginId", null);%>
+		})
 	})
 </script>
 </head>
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"></c:set>
-	
 	<div class="main-panel">
+	<c:if test="${empty sessionScope.loginId}" >		
 		<div class="panel panel-default login-panel">
 			<div class="panel-body">
-				<c:if test="${empty sessionScope.loginId}" >	
 				<form id="loginForm" class="form-horizontal" action="${myContextPath}/member" method="post">
 					<div class="form-group">
 						<table>
@@ -108,14 +111,16 @@ button{
 <!-- 								<td><label><input type="checkbox">기억하기</label> -->
 <!-- 								</td> -->
 							</tr>
-							<tr>
-								<td colspan="2">
+							<tr >
+								<td colspan="2" align="center">
+									<br>
 									<input id="loginBtn" type="button" class="btn btn-default" value="로그인">
 									<input type="hidden" name="task" value="login">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
+								<br>
 									  <!-- Trigger the modal with a button -->
 									  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">회원 가입</button>	  
 								</td>
@@ -154,7 +159,7 @@ button{
 		      
 		    </div>
 		  </div>
-		</c:if>
+  		</c:if>
 		<c:if test="${not empty sessionScope.loginId}">
 			<% response.sendRedirect(request.getContextPath()+"/board?type=boardList"); %>
 		</c:if>

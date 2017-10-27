@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import service.MemberService;
 import vo.Member;
 
-// ȸ������ ��û�� ó���ϴ� ����
 @WebServlet("/member")
 public class MemberServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -31,18 +28,14 @@ public class MemberServlet extends HttpServlet{
 			path = "join_form.jsp";
 		} else if(task.equals("loginForm")) {
 			path = "login_form.jsp";
-		} else if(task.equals("idCheck")) {
+		} else if(task.equals("delete")) {
 			String id = request.getParameter("id");
-			Member member = service.getMemberInfo(id);
-			if(member == null) {
-				// 조회결과 없음 아이디 사용 가능
-				response.setContentType("text/text;charset=euc-kr");
-	            PrintWriter writer = response.getWriter();
-	            writer.print("true");
-			} else {
-				response.setContentType("text/text;charset=euc-kr");
-			}
-			return;
+			
+			System.out.println("delete servlet 동작");
+			
+			if(service.deleteMemberInfo(id) == 1)
+				System.out.println("멤서 삭제 성공");
+			path="index.jsp";
 		}
 		
 		RequestDispatcher dispatcher = 
@@ -57,12 +50,7 @@ public class MemberServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		String task = request.getParameter("task");
 		String path = "";
-		Enumeration<String> params = request.getParameterNames();
-		System.out.println("----------------");
-		while(params.hasMoreElements()) {
-			System.out.println(params.nextElement());
-		}
-		System.out.println("----------------");
+		
 		if(task.equals("join")) {
 			Member member = new Member();
 			member.setId(request.getParameter("id"));
@@ -98,7 +86,16 @@ public class MemberServlet extends HttpServlet{
 			}else {
 				path = "join/login_fail.jsp";
 			}
-		}
+		} else if(task.equals("update")) {
+			String id = request.getParameter("id");
+			String nickname = request.getParameter("nickname");
+			String pw = request.getParameter("pw");
+			System.out.println("전달된 정보 수정 정보: id:"+id+"nickname:"+nickname+" pw:"+pw);
+			
+			service.updateMemberInfo(id, nickname, pw);
+
+			path="index.jsp";
+		} 
 		
 		RequestDispatcher dispatcher = 
 				request.getRequestDispatcher(path);

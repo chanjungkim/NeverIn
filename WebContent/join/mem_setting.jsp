@@ -16,13 +16,6 @@
 .delete{
 	color: red;
 }
-.model-dialog{
-	width:100%;
-}
-.modal-content{
-	width:62.3%;
-	height:80%;
-}
 #items{
 	width:40px;
 	height:40px;
@@ -31,6 +24,8 @@
 
 </head>
 <body>
+<c:set var="myContextPath" 
+			value="${pageContext.request.contextPath}"/>
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -52,41 +47,77 @@
 		        <div class="tab-content">
 		          <div id="myPage" class="tab-pane active">
 		          	<h1>마이페이지</h1>
-		          		닉네임
-		          		<input type="text">
-		          		비밀번호
-		          		<input type="password">
-		          		비밀번호 확인
-		          		<input type="password">
-		          		
-		          		<a href="#" style="color:red;">회원탈퇴</a>
+		          		<fieldset>
+		          			<legend>${sessionScope.loginId}님의 정보수정</legend>
+			          		<form action="<%=request.getContextPath()%>/member" method="post">
+			          			<input type="hidden" name="task" value="update">
+			          			<input type="hidden" name="id" value="${sessionScope.loginId}">
+				          		닉네임<br>
+				          		<input type="text" name="nickname"><br>
+				          		비밀번호<br>
+				          		<input type="password"><br>
+				          		비밀번호 확인<br>
+				          		<input type="password" name="pw"><br>
+				          		<a href="${myContextPath}/member?task=delete&id=${sessionScope.loginId}" style="color:red;">회원탈퇴</a>
+				          		<input type="submit" value="수정하기">
+			          		</form>
+		          		</fieldset>
 		          </div>
 		          <div id="shop" class="tab-pane">
+		          	<div id="item-list">
 <%-- 		          		<c:forEach var="item" items="itemList"> --%>
 		          		<div id="item-container">
 		          			<div id="image-container">
-		          				<img id="items" src="../img/item.png">
-		          			</div>
+		          				<img id="items" src="img/item.png">
+		          				<br>10포인트
+		          			</div>	
+		          		</div>
+		          		<div id="item-container">
+		          			<div id="image-container">
+		          				<img id="items" src="img/item.png">
+		          				<br>50포인트
+		          			</div>	
+		          		</div>
+		          		<div id="item-container">
+		          			<div id="image-container">
+		          				<img id="items" src="img/item.png">
+		          				<br>150포인트
+		          			</div>	
+		          		</div>
+		           		<div id="item-container">
+		          			<div id="image-container">
+		          				<img id="items" src="img/item.png">
+		          				<br>300포인트
+		          			</div>	
+		          		</div>
+		           		<div id="item-container">
+		          			<div id="image-container">
+		          				<img id="items" src="img/item.png">
+		          				<br>500포인트
+		          			</div>	
 		          		</div>
 <%-- 		          		</c:forEach> --%>
+					</div>
 		          </div>
 		          <div id="report" class="tab-pane">
 		          		<div id="report-container">
-			          		<input type="text" size="20" placeholder="제목을 입력해주세요">
-			          		<textarea rows="30" cols="30" placeholder="내용을 작성해주세요.">
-		          			  
-			          		</textarea>
+		          			<form action="" method="post">
+				          		<input type="text" name="reportTitle" size="20" placeholder="제목을 입력해주세요"><br>
+				          		<textarea rows="15" name="reportContents" cols="40" style="resize: none;">내용을 작성해주세요.</textarea>
+				          		<br>
+				          		<input type="submit" value="제출">
+			          		</form>
 		          		</div>
 		          </div>
 		          <div id="qa" class="tab-pane">
 		          		<table border="1">
 		          			<tr>
-		          				<td width="5%">번호</td>
+		          				<td width="10%">번호</td>
 		       					<td width="75%">제목</td>
 		       					<td width="20%">날짜</td>
 		          			</tr>
 		          			<tr>
-		          				<td>게시글이 없습니다.</td>
+		          				<td colspan="3">게시글이 없습니다.</td>
 		          			</tr>
 <%-- 		          		<c:forEach var="row" items="questions"> --%>
 		          		
@@ -100,6 +131,7 @@
 		      </div>
 		  </div>
 		</div>
+		<br>
 	    <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         </div>

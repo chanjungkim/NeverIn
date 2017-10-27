@@ -24,6 +24,29 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 	color: red;
 }
 
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.model-content{
+	width:500px;
+	height:600px;
+}
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  padding-left:11%;
+}
 </style>
 </head>
 <body>
@@ -50,7 +73,9 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 		  			<a data-toggle="modal" data-target="#myModal">설정</a>
 				</li>
 			</ul>
+				<div class="set-modal" style="display:flex;align-items:center;justify-content:center;">
 					<jsp:include page="join/mem_setting.jsp"/>
+				</div>
 		</div>
 	</nav>
 </body>
