@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,6 +65,17 @@ button{
 	display: inline;
 }
 </style>
+<script type="text/javascript">
+	$(function(){
+		$('#loginBtn').click(function(e){
+			$('#joinForm').unbind();
+			$('#loginForm').submit();
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			return false;
+		})
+	})
+</script>
 </head>
 <body>
 <c:set var="myContextPath" value="${pageContext.request.contextPath}"></c:set>
@@ -74,7 +84,7 @@ button{
 		<div class="panel panel-default login-panel">
 			<div class="panel-body">
 				<c:if test="${empty sessionScope.loginId}" >	
-				<form class="form-horizontal" action="${myContextPath}/member" method="post">
+				<form id="loginForm" class="form-horizontal" action="${myContextPath}/member" method="post">
 					<div class="form-group">
 						<table>
 							<tr>
@@ -100,7 +110,7 @@ button{
 							</tr>
 							<tr>
 								<td colspan="2">
-									<input type="submit" class="btn btn-default" value="로그인">
+									<input id="loginBtn" type="button" class="btn btn-default" value="로그인">
 									<input type="hidden" name="task" value="login">
 								</td>
 							</tr>
@@ -131,11 +141,9 @@ button{
 					</div>
 					<div class="modal-right">
 							<div class="form-group">
-								<form action = "<%=request.getContextPath()%>/member" method="post">
 									<table class="table-hover table-managed">
 										<jsp:include page="join/join_form.jsp"/> 
 									</table>					
-								</form>
 							</div>
 					</div>
 				</div>

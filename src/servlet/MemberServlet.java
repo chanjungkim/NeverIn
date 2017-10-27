@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +31,18 @@ public class MemberServlet extends HttpServlet{
 			path = "join_form.jsp";
 		} else if(task.equals("loginForm")) {
 			path = "login_form.jsp";
+		} else if(task.equals("idCheck")) {
+			String id = request.getParameter("id");
+			Member member = service.getMemberInfo(id);
+			if(member == null) {
+				// 조회결과 없음 아이디 사용 가능
+				response.setContentType("text/text;charset=euc-kr");
+	            PrintWriter writer = response.getWriter();
+	            writer.print("true");
+			} else {
+				response.setContentType("text/text;charset=euc-kr");
+			}
+			return;
 		}
 		
 		RequestDispatcher dispatcher = 
@@ -43,7 +57,12 @@ public class MemberServlet extends HttpServlet{
 		request.setCharacterEncoding("UTF-8");
 		String task = request.getParameter("task");
 		String path = "";
-		
+		Enumeration<String> params = request.getParameterNames();
+		System.out.println("----------------");
+		while(params.hasMoreElements()) {
+			System.out.println(params.nextElement());
+		}
+		System.out.println("----------------");
 		if(task.equals("join")) {
 			Member member = new Member();
 			member.setId(request.getParameter("id"));

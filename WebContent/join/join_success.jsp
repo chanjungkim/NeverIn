@@ -6,11 +6,14 @@
 <title>회원가입 완료</title>
 </head>
 <body>
+
 <c:set var="myContextPath" 
 			value="${pageContext.request.contextPath}"/>
-	<h2>회원가입이 완료되었습니다.</h2>
-	<a href="${myContextPath}/member?task=loginForm">
-		로그인하러 가기
-	</a>
+<script type="text/javascript">
+	window.onload = function(){
+		alert('회원가입이 완료되었습니다.');
+		location.href='${myContextPath}'+"/member?task=index";
+	}
+</script>
 </body>
 </html>

@@ -91,7 +91,7 @@ public class MemberDao {
 		con=DBUtil.makeConnection();
 		String sql = "SELECT * FROM MEMBER WHERE ID=?";
 
-		Member member = new Member();
+		Member member = null;
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -100,6 +100,7 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
+				member = new Member();
 				member.setId(rs.getString(1));
 				member.setPw(rs.getString(2));
 				member.setName(rs.getString(3));

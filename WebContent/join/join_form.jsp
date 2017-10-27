@@ -10,73 +10,144 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$('#id').focusout(function() {
-			var id = $('#id').val();
-			if (id.length<4) {
-				$('#idCheck').html("ID는 4자리 이상 입력하시오");
-			} else {
-				$('#idCheck').empty();
-			}
-		})
-		$('#pw').focusout(function() {
+		var submitConfirm = {'id':false,'pw':false,'name':false,'birth':false,
+				'nickname':false,'email':false,'phone':false};
+		
+		$('#pw').on('keyup',function() {
 			var pw = $('#pw').val();
 			if (pw.length<4) {
-				$('#pwCheck').html("비밀번호는 4자리 이상 입력하시오");
+				$('#pwCheck').html('<span style="color:red">비밀번호는 4자리 이상 입력하시오.</span>');
+				submitConfirm['pw'] = false;
 			} else {
 				$('#pwCheck').empty();
 			}
 		})
-		$('#pwConfirm').focusout(function() {
+		$('#pwConfirm').on('keyup',function() {
 			var pw = $('#pw').val();
 			var pwConfirm = $('#pwConfirm').val();
 			if (pw==pwConfirm) {
-				$('#pwConfirmCheck').html("비밀번호가 일치합니다");
+				$('#pwConfirmCheck').html('<span style="color:green">비밀번호가 일치합니다.</span>');
+				submitConfirm['pw'] = true;
 			} else {
-				$('#pwConfirmCheck').html("비밀번호가 일치하지 않습니다");
+				$('#pwConfirmCheck').html('<span style="color:red">비밀번호가 불일치합니다.</span>');
+				submitConfirm['pw'] = false;
 			}
 		})
 		
-		$('form').submit(function(){
+		$('#name').focusout(function() {
+			var id = $('#name').val();
+			if (id.length<1) {
+				submitConfirm['name'] = false;
+			} else {
+				submitConfirm['name'] = true;
+			}
+		})
+		
+		$('#nickname').focusout(function() {
+			var id = $('#nickname').val();
+			if (id.length<1) {
+				submitConfirm['nickname'] = false;
+			} else {
+				submitConfirm['nickname'] = true;
+			}
+		})
+		
+		$('#joinBtn').click(function(){
 			var birth = $('#year').val()+$('#month').val()+$('#day').val();
 			$('#birth').val(birth);
-		})
-		$('form').submit(function(){
+			submitConfirm['birth'] = true;
+			
 			var email = $('#email01').val()+"@"+$('#email02').val();
 			$('#email').val(email);
-		})
-		$('form').submit(function(){
+			if (email.length<10) {
+				submitConfirm['email'] = false;
+			} else {
+				submitConfirm['email'] = true;
+			}
+			
 			var phone = $('#phoneNum00').val()+$('#phoneNum01').val()+$('#phoneNum02').val();
 			$('#phone').val(phone);
+			if (phone.length<10) {
+				submitConfirm['phone'] = false;
+			} else {
+				submitConfirm['phone'] = true;
+			}
+			
+			var submitOK = true;
+			
+			$.each(submitConfirm,function(item){
+				if(submitConfirm[item]==false){
+					alert(item+'을 확인하세요');
+					submitOK = false;
+					return false;
+				}
+			})
+			
+			if(submitOK == true){
+				$('#joinForm').submit();
+// 				return true; // submit 진행
+			}else{
+				return false; // submit 취소
+			}
+		})
+		
+		$('#idChk').click(function(){
+			var id = $('#id').val();
+			if (id.length<4) {
+				$('#idCheck').html('<span style="color:red">아이디는 4자리 이상 입력하시오.</span>');
+				submitConfirm['id'] = false;
+			} else {
+				
+				$.ajax({
+					type:'get', // 요청 보내면 doPost가 실행됨
+					url:'member', // 우리가 작성한 java 서블릿에게
+					data:'id='+id+'&task=idCheck', // 검색어 데이터
+					dataType: 'text',// 응답데이터 형식
+					success:function(result){
+						if(result==null || result == '' || result == 'null' || result == 'false' ){
+							$('#idCheck').html('<span style="color:red">중복된 아이디 입니다..</span>');
+							submitConfirm['id'] = false;
+						}else{
+							$('#idCheck').html('<span style="color:green">사용 가능한 아이디입니다.</span>');
+							submitConfirm['id'] = true;
+						}
+					},
+					error:function(){
+						alert('서버 통신 에러');
+					}
+				})
+				submitConfirm['id'] = true;
+			}
 		})
 	})
 </script>
 </head>
 <body>
-	<span id="title">회원가입</span>
+<form id="joinForm" action = "<%=request.getContextPath()%>/member" method="post">
 	<div>
 
 		<input type="hidden" name="task" value="join">
-			<table border="1">
+			<table border="1" width=570px;>
 				<tr>
-					<td>ID</td>
-					<td><input id="id" type="text" name="id"><span id="idCheck"></span></td>
+					<td>&nbsp;&nbsp;ID</td>
+					<td><input id="id" type="text" name="id"><input type="button" id="idChk" name="idChk" value="ID중복체크"><span id="idCheck"></span></td>
 				</tr>
 				<tr>
-					<td>PW<br> 확인
+					<td>&nbsp;&nbsp;PW<br> &nbsp;&nbsp;확인
 					</td>
 					<td><input id="pw" name="pw" type="password"><span id="pwCheck"></span><br>
 						<input id="pwConfirm" type="password"><span
 						id="pwConfirmCheck"></span></td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<td>&nbsp;&nbsp;이름</td>
 					<td><input id="name" name="name" type="text"><span id="nameCheck"></span></td>
 				</tr>
 				<tr>
-					<td>생년월일</td>
+					<td>&nbsp;&nbsp;생년월일</td>
 					<td><select id="year">
 							<%
-								for (int i = 1900; i <= 2017; i++) {
+								for (int i = 2017; i >= 1900; i--) {
 							%>
 							<option value="<%=i%>"><%=i%></option>
 							<%
@@ -118,22 +189,22 @@
 					</td>
 				</tr>
 				<tr>
-					<td>성별</td>
+					<td>&nbsp;&nbsp;성별</td>
 					<td><input type="radio" name="gender" value="남" checked="checked">남 <input
 						type="radio" name="gender" value="여">여</td>
 				</tr>
 				<tr>
-					<td>닉네임</td>
+					<td>&nbsp;&nbsp;닉네임</td>
 					<td><input id="nickname" name="nickname" type="text"><span id="nicknameCheck"></span></td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<td>&nbsp;&nbsp;이메일</td>
 					<td><input type="text" id="email01" size="18" maxlength="18">@
 						<input type="text" id="email02" size="15" maxlength="15">
 						<input type="hidden" name="email" id="email" value=""/>
 				</tr>
 				<tr>
-					<td>핸드폰</td>
+					<td>&nbsp;&nbsp;핸드폰</td>
 					<td><select id="phoneNum00">
 							<option value="010">010</option>
 							<option value="011">011</option>
@@ -148,10 +219,10 @@
 				</tr>
 			
 				<tr>
-					<td colspan="2"><input type="submit" value="signup"></td>
+					<td colspan="2" align="right"><input id="joinBtn" type="button" value="회원가입" ></td>
 				</tr>
 			</table>
 	</div>
-
+</form>
 </body>
 </html>
