@@ -74,7 +74,7 @@
 		          		<div id="report-container">
 			          		<input type="text" size="20" placeholder="제목을 입력해주세요">
 			          		<textarea rows="30" cols="30" placeholder="내용을 작성해주세요.">
-		          			
+		          			  
 			          		</textarea>
 		          		</div>
 		          </div>
