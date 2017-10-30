@@ -104,6 +104,14 @@ public class MemberServlet extends HttpServlet{
 			if(service.deleteMemberInfo(id) == 1)
 				System.out.println("멤서 삭제 성공");
 			path="index.jsp";
+		} else if(task.equals("logout")) {
+			String id = request.getParameter("id");
+			
+			System.out.println(id+" 로그아웃 시도...");
+			
+			request.getSession().invalidate();
+			
+			path="index.jsp";
 		}
 		
 		RequestDispatcher dispatcher = 

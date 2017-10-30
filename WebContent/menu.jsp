@@ -100,13 +100,13 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
 				<li>
-					<a class="dropdown" href="${myContextPath}/board">지식Q&A</a>
-					<ul class="dropdown-menu">
-						<li><a href="qa/page2.jsp">교육</a></li>
-						<li><a href="qa/page3.jsp">컴퓨터</a></li>
-						<li><a href="qa/page4.jsp">엔터테인먼트</a></li>
-					</ul>
-				</li>
+					<a class="dropdown" href="${myContextPath}/board">지식Q&A
+<!-- 					<ul class="dropdown-menu"> -->
+<!-- 						<li><a href="qa/page2.jsp">교육</a></li> -->
+<!-- 						<li><a href="qa/page3.jsp">컴퓨터</a></li> -->
+<!-- 						<li><a href="qa/page4.jsp">엔터테인먼트</a></li> -->
+<!-- 					</ul></li> -->
+					</a>
 				<li>
 					<a href="${myContextPath}/freeboard">자유 게시판</a>
 				</li>
@@ -114,11 +114,13 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 					<!-- Trigger the modal with a button -->
 		  			<a data-toggle="modal" data-target="#myModal">설정</a>
 				</li>
-				<c:if test=${sessionScope.loginId == 'master'}>
 				<li>
-					<a href="${myContextPath}">관리</a>
+					<form action="${myContextPath}/member" method="post" >
+						<input type="hidden" name="id" value="${sessionScope.loginId}">
+						<input type="hidden" name="task" value="logout">
+						<input type="submit" value="로그아웃" style="background-color:Transparent; border-style:none; color:gray; padding-top:15px;padding-bottom:15px;padding-left:15px;padding-right:15px;">
+					</form>
 				</li>
-				</c:if>
 			</ul>
 				<div class="set-modal" style="display:flex;align-items:center;justify-content:center;">
 					<jsp:include page="join/mem_setting.jsp"/>

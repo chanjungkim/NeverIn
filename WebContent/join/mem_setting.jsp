@@ -23,6 +23,7 @@
 #items {
 	width: 100%;
 	height: 66px;
+	
 }
 
 row, .tab-pane {
@@ -62,6 +63,7 @@ row, .tab-pane {
 	text-align: center;
 	align-content: center;
 }
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -124,28 +126,28 @@ row, .tab-pane {
 										<%-- 		          		<c:forEach var="item" items="itemList"> --%>
 										<div id="item-container">
 											<div id="image-container">
-												<img id="items" src="img/item.png"> <br>10포인트
+												<a href="#"><img id="items" src="img/item.png"> <br>10포인트</a>
 											</div>
 										</div>
 										<div id="item-container">
 											<div id="image-container">
-												<img id="items" src="img/item.png"> <br>50포인트
+												<a href="#"><img id="items" src="img/item.png"> <br>50포인트</a>
 											</div>
 										</div>
 										<div id="item-container">
 											<div id="image-container">
-												<img id="items" src="img/item.png"> <br>150포인트
+												<a href="#"><img id="items" src="img/item.png"> <br>150포인트</a>
 											</div>
 										</div>
 										<div id="item-container">
 											<div id="image-container">
-												<img id="items" src="img/item.png"> <br>300포인트
+												<a href="#"><img id="items" src="img/item.png"> <br>300포인트</a>
 											</div>
 										</div>
 										<br>
 										<div id="item-container">
 											<div id="image-container">
-												<img id="items" src="img/item.png"> <br>500포인트
+												<a href="#"><img id="items" src="img/item.png"> <br>500포인트</a>
 											</div>
 										</div>
 										<%-- 		          		</c:forEach> --%>
@@ -163,10 +165,10 @@ row, .tab-pane {
 									</div>
 								</div>
 								<div id="qa" class="tab-pane">
-									<table id="qa-form" border="1" width="100%">
+									<table id="qa-form" border="1" width="85%">
 										<tr>
-											<td width="10%">번호</td>
-											<td width="75%">제목</td>
+											<td width="15%">번호</td>
+											<td width="50%">제목</td>
 											<td width="20%">날짜</td>
 										</tr>
 										<tr>

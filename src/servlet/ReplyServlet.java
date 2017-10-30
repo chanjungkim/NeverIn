@@ -50,6 +50,7 @@ public class ReplyServlet extends HttpServlet{
 			reply.setContents(request.getParameter("contents"));
 			System.out.println(reply.getContents());
 			reply.setArticleNum(Integer.parseInt(request.getParameter("articleNum")));
+			
 			request.setAttribute("articleNum", reply.getArticleNum());
 			
 			if(service.writeReply(reply)) {

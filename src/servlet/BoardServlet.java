@@ -106,7 +106,9 @@ public class BoardServlet extends HttpServlet{
 				articleNum = Integer.parseInt(articleNumStr);
 			}
 			request.setAttribute("articleNum", articleNum);
+			
 			updateArticle.setAritlcleNum(articleNum);
+			
 			if(service.idCheckUpdate(updateArticle)) {
 				request.setAttribute
 				("articleNum", updateArticle.getAritlcleNum());
