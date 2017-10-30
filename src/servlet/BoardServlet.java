@@ -42,13 +42,11 @@ public class BoardServlet extends HttpServlet{
 			
 			ArticlePageVO articlePage = 
 					service.makeArticlePage(page);
-
+	
 			request.setAttribute("articlePage", articlePage);
 			
 			path = "qa/board_list.jsp";
-		}else if(type.equals("writeForm")) {
-			path = "qa/write_form.jsp";
-		}else if(type.equals("read")) {
+		} else if(type.equals("read")) {
 			String articleNumStr = 
 					request.getParameter("articleNum");
 			
@@ -57,6 +55,8 @@ public class BoardServlet extends HttpServlet{
 			if(articleNumStr!=null && articleNumStr.length()>0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
+			
+			request.setAttribute("articleNum", articleNum);
 			Article article = 
 					service.readAndReadCount(articleNum);
 			
@@ -69,35 +69,8 @@ public class BoardServlet extends HttpServlet{
 			} else {
 				path = "qa/article_not_found.jsp";
 			}
-		} else if(type.equals("updateForm")) {
-			String articleNumStr = 
-						request.getParameter("articleNum");
-			int articleNum = 0;
-			if(articleNumStr!=null 
-							&& articleNumStr.length()>0) {
-				articleNum = 
-						Integer.parseInt(articleNumStr);
-			}
-			Article original = 
-					service.readWithoutReadCount(articleNum);
-			
-			request.setAttribute("original", original);
-			
-			path = "qa/update_form.jsp";
-		} else if(type.equals("deleteForm")) {
-			String articleNumStr = 
-					request.getParameter("articleNum");
-			int articleNum = 0;
-			if (articleNumStr != null 
-						&& articleNumStr.length() > 0) {
-				articleNum = Integer.parseInt(articleNumStr);
-			}
-			
-			if(service.delete(articleNum)) {
-				path = "qa/delete_success.jsp";
-			}else {
-				path = "qa/delete_fail.jsp";
-			}
+		} else if(type.equals("writeForm")) {
+			path = "qa/write_form.jsp";
 		}
 		
 		RequestDispatcher dispatcher = 
@@ -128,9 +101,11 @@ public class BoardServlet extends HttpServlet{
 			updateArticle.setContents(request.getParameter("contents"));
 			String articleNumStr = request.getParameter("articleNum");
 			int articleNum = 0;
+			
 			if(articleNumStr!=null && articleNumStr.length()>0) {
 				articleNum = Integer.parseInt(articleNumStr);
 			}
+			request.setAttribute("articleNum", articleNum);
 			updateArticle.setAritlcleNum(articleNum);
 			if(service.idCheckUpdate(updateArticle)) {
 				request.setAttribute
@@ -151,7 +126,36 @@ public class BoardServlet extends HttpServlet{
 			}else {
 				path = "qa/delete_fail.jsp";
 			}
-		}
+		} else if(type.equals("updateForm")) {
+			String articleNumStr = 
+					request.getParameter("articleNum");
+			int articleNum = 0;
+			if(articleNumStr!=null 
+							&& articleNumStr.length()>0) {
+			articleNum = 
+					Integer.parseInt(articleNumStr);
+			}
+			Article original = 
+					service.readWithoutReadCount(articleNum);
+			
+			request.setAttribute("original", original);
+			
+			path = "qa/update_form.jsp";
+		} else if(type.equals("deleteForm")) {
+			String articleNumStr = 
+					request.getParameter("articleNum");
+			int articleNum = 0;
+			if (articleNumStr != null 
+						&& articleNumStr.length() > 0) {
+				articleNum = Integer.parseInt(articleNumStr);
+			}
+			
+			if(service.delete(articleNum)) {
+				path = "qa/delete_success.jsp";
+			}else {
+				path = "qa/delete_fail.jsp";
+			}
+		} 
 		
 		RequestDispatcher dispatcher = 
 						request.getRequestDispatcher(path);

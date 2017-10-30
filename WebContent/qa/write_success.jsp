@@ -5,6 +5,6 @@
 <title>수정 결과</title>
 </head>
 <body>
-	<%response.sendRedirect(request.getContextPath()+"/board"); %>
+<%response.sendRedirect(request.getContextPath()+"/board"); %>
 </body>
 </html>

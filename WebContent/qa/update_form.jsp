@@ -28,8 +28,7 @@ background-color: cce;
 <body>
 <jsp:include page="../menu.jsp"/>
 <div class="container">
-	<form action="<%=request.getContextPath()%>/board" 
-												method="post">
+	<form action="<%=request.getContextPath()%>/board" method="post">
 	<input type="hidden" name="type" value="update">
 	<input type="hidden" name="articleNum" 
 					value="<%=original.getAritlcleNum()%>">																	

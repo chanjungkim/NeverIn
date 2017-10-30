@@ -45,6 +45,7 @@ background-color: cce;
 <%
 	Article article = 
 				(Article) request.getAttribute("article");
+	String articleNum = Integer.toString(article.getAritlcleNum());
 %>
 <c:set var="writer" value="<%=article.getWriter()%>"></c:set>
 <div class="container">
@@ -80,33 +81,41 @@ background-color: cce;
 				<td>${reply.contents}</td>
 				<td>
 				<c:if test="${sessionScope.loginId == reply.writer}">
-					<a href="${myContextPath}/reply?type=edit&articleNum=${reply.articleNum}&replyNum=${reply.replyNum}"><button>수정</button> </a>
-					<a href="${myContextPath}/reply?type=delete&articleNum=${reply.articleNum}&replyNum=${reply.replyNum}"><button>삭제</button></a>			
-				</c:if>
-				
+					<form action="${myContextPath}/reply" method="post">
+						<input type="hidden" name="type" value="edit">
+						<input type="hidden" name="articleNum" value="${reply.articleNum}">
+						<input type="hidden" name="replyNum" value="${reply.replyNum}">
+						<input type="submit" value="수정">
+					</form>					
+					<form action="${myContextPath}/reply" method="post">
+						<input type="hidden" name="type" value="delete">
+						<input type="hidden" name="articleNum" value="${reply.articleNum}">
+						<input type="hidden" name="replyNum" value="${reply.replyNum}">
+						<input type="submit" value="삭제">
+					</form>
+				</c:if>				
 				</td>
 			</tr>
 		</table>
 	</c:forEach>
-	<c:if test="${sessionScope.loginId == writer}" >	
-	<a href=
-	"<%=request.getContextPath()%>/board?type=updateForm&articleNum=<%=article.getAritlcleNum()%>">
-		[수정하기]
-	</a>
-	<a href=
-	"<%=request.getContextPath()%>/board?type=deleteForm&articleNum=<%=article.getAritlcleNum()%>">
-		[삭제하기]
-	</a>
+	<form action="<%=request.getContextPath()%>/board" method="get">
+		<input type="hidden" name="type" value="boardList">
+		<input type="submit" value="게시판 목록으로">
+	</form>
+	<c:if test="${sessionScope.loginId == writer}" >
+		<form action="<%=request.getContextPath()%>/board" method="post">
+			<input type="hidden" name="type" value="updateForm">
+			<input type="hidden" name="articleNum" value="<%=article.getAritlcleNum()%>">
+			<input type="submit" value="수정하기">
+		</form>
+		<form action="<%=request.getContextPath()%>/board" method="post">
+			<input type="hidden" name="type" value="deleteForm">
+			<input type="hidden" name="articleNum" value="<%=article.getAritlcleNum()%>">
+			<input type="submit" value="삭제하기">
+		</form>
 	</c:if>
-	<a href=
-	"<%=request.getContextPath()%>/board?type=boardList">
-		[게시판 목록으로]
-	</a>
 	<c:if test="${sessionScope.loginId != writer}" >	
-	<a href=
-	"<%=request.getContextPath()%>/reply?type=replyForm&articleNum=<%=article.getAritlcleNum()%>">
-		[답변하기]
-	</a>
+		<a href="<%=request.getContextPath()%>/reply?type=replyForm&articleNum=<%=articleNum%>"><button>답변하기</button></a>
 	</c:if>
 	</div>
 </body>

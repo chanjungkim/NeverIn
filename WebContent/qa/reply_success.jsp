@@ -5,6 +5,9 @@
 <title>수정 결과</title>
 </head>
 <body>
-	<%response.sendRedirect(request.getContextPath()+"/board"); %>
+<%
+	Integer articleNum = (Integer) request.getAttribute("articleNum");
+	response.sendRedirect(request.getContextPath()+"/board?type=read&articleNum="+articleNum);
+%>
 </body>
 </html>
